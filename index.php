@@ -1,7 +1,7 @@
 <?php
   include_once('./includes/header.php');
 ?>
-  <title>Index Page</title>
+  <title>Inicio</title>
 <?php
   include_once('./includes/navbar.php');
 ?>
