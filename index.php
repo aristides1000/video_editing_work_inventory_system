@@ -1,4 +1,5 @@
 <?php
+  include_once('./conexion.php');
   include_once('./includes/header.php');
 ?>
   <title>Inicio</title>
