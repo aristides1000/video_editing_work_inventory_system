@@ -9,7 +9,8 @@
     $sql = "SELECT * FROM users WHERE nickname='$_POST[nickname]'";
     $query = mysqli_query($link, $sql);
     $num = mysqli_num_rows($query);
-    if ($num == 0) {
+    $row = mysqli_fetch_array($query); # descargo en el arreglo $row la primera fila
+    if ($num == 0 || $row['password'] != md5($_POST['password'])) {
       ?>
         <div class="modal fade" id="incorrectData" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
           <div class="modal-dialog modal-dialog-centered">
@@ -31,6 +32,14 @@
             </div>
           </div>
         </div>
+      <?php
+    } else {
+      # Autentificacion (Creamos variables de sesión con los datos del usuario)
+      $_SESSION['id'] = $row['id'];
+      $_SESSION['nickname'] = $row['nickname'];
+      $_SESSION['user_type_id'] = $row['user_type_id'];
+      ?>
+        <meta http-equiv="refresh" content="0; URL=./index.php" />
       <?php
     }
   }
