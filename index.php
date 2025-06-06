@@ -37,7 +37,6 @@
       header("Location: ./login.php");
   }
   ?>
-    <h1>Hola <?php echo $_SESSION['nickname'] ?>, Bienvenido al index!</h1>
 <?php
   include_once('./includes/footer.php');
 ?>
