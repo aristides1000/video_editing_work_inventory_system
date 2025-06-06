@@ -9,7 +9,32 @@
 
   switch ($_SESSION['user_type_id']) {
     case "1":
-      ?> <meta http-equiv="refresh" content="2; URL=./user_registration.php" /> <?php
+      ?>
+        <h1 class="mx-3">Registro de Nuevos Usuarios</h1>
+
+        <form class="mx-3" action="user_registration_logic.php" method="post">
+          <div class="mb-3">
+            <label for="nickname" class="form-label">Nombre de usuario</label>
+            <input type="text" class="form-control" id="nickname" aria-describedby="nicknameHelp">
+            <div id="emailHelp" class="form-text">Por favor, escriba su nombre de usuario sin caracteres de espacio</div>
+          </div>
+          <div class="mb-3">
+            <label for="password" class="form-label">Password</label>
+            <input type="password" class="form-control" id="password">
+          </div>
+          <div class="mb-3">
+            <label for="user_type_id" class="form-label">tipo de </label>
+            <select class="form-select" aria-label="Tipo de usuario" id="user_type_id">
+              <option selected>Seleccione el Tipo de Usuario</option>
+              <option value="1">Super Usuario</option>
+              <option value="2">Administrador</option>
+              <option value="3">Verificador</option>
+              <option value="4">Responsable</option>
+            </select>
+          </div>
+          <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+      <?php
       break;
     case "2":
       ?>

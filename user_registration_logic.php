@@ -32,11 +32,6 @@
             </div>
           </div>
         </div>
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js" integrity="sha384-j1CDi7MgGQ12Z7Qab0qlWQ/Qqz24Gc6BM0thvEMVjHnfYGF0rmFCozFSxQBxwHKO" crossorigin="anonymous"></script>
-        <script>
-          const incorrectData = new bootstrap.Modal(document.getElementById('incorrectData'));
-          incorrectData.show();
-        </script>
       <?php
     } else {
       # Autentificacion (Creamos variables de sesión con los datos del usuario)
@@ -47,38 +42,13 @@
         <meta http-equiv="refresh" content="0; URL=./index.php" />
       <?php
     }
-  } else {
-    ?>
-      <div class="modal fade" id="missingData" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h1 class="modal-title fs-5" id="staticBackdropLabel">Faltan Datos</h1>
-              <a href="./login.php" class="ms-auto">
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-              </a>
-            </div>
-            <div class="modal-body">
-              Por favor ingrese toda la informacion solicitada
-            </div>
-            <div class="modal-footer">
-              <a href="./login.php">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-              </a>
-            </div>
-          </div>
-        </div>
-      </div>
-      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js" integrity="sha384-j1CDi7MgGQ12Z7Qab0qlWQ/Qqz24Gc6BM0thvEMVjHnfYGF0rmFCozFSxQBxwHKO" crossorigin="anonymous"></script>
-      <script>
-        const missingData = new bootstrap.Modal(document.getElementById('missingData'));
-        missingData.show();
-      </script>
-    <?php
   }
-
 
 ?>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js" integrity="sha384-j1CDi7MgGQ12Z7Qab0qlWQ/Qqz24Gc6BM0thvEMVjHnfYGF0rmFCozFSxQBxwHKO" crossorigin="anonymous"></script>
+  <script>
+    const incorrectData = new bootstrap.Modal(document.getElementById('incorrectData'));
+    incorrectData.show();
+  </script>
 </body>
 </html>
