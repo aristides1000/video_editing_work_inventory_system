@@ -88,7 +88,7 @@ CREATE TABLE IF NOT EXISTS equipments (
 
 INSERT INTO equipments (equipment_category_id, type_of_equipment_id, equipment_status_id, image_path, qr_equipment_image)
 VALUES (1, 1, 1, "./equipment_image/default_image.png", "./qr_equipment_image/default_qr.png"),
-(2, 2, 2, "./equipment_image/default_image.png", "./qr_equipment_image/default_qr.png"),
+(2, 3, 2, "./equipment_image/default_image.png", "./qr_equipment_image/default_qr.png"),
 (1, 2, 1, "./equipment_image/default_image.png", "./qr_equipment_image/default_qr.png");
 
 CREATE TABLE IF NOT EXISTS warehouses (
