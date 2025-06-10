@@ -71,7 +71,8 @@ CREATE TABLE IF NOT EXISTS types_of_activities (
 
 INSERT INTO types_of_activities (name)
 VALUES ("pauta"),
-("prestamo");
+("prestamo"),
+("en almacen");
 
 CREATE TABLE IF NOT EXISTS equipments (
   id INT NOT NULL AUTO_INCREMENT,
@@ -108,5 +109,6 @@ CREATE TABLE IF NOT EXISTS warehouses (
 );
 
 INSERT INTO warehouses (equipment_id, in_the_warehouse, type_of_activity_id, activity, responsible_id, verified_by_id)
-VALUES (1, 1, 1, "video del parque", 4, 3),
-(2, 0, 2, "sesion en la playa", 4, 3);
+VALUES (1, 0, 1, "video del parque", 4, 3),
+(2, 0, 2, "sesion en la playa", 4, 3),
+(3, 1, 3, "almacenado", 4, 3);
