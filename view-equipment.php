@@ -20,9 +20,10 @@
           </div>
         </div>
       <?php
+      if (isset($_GET['id'])) {
       $sql = "SELECT
-                DISTINCT eq1.id AS id_equipment,
-                wa.id,
+                eq1.id AS id_equipment,
+                wa.id AS warehouse_id,
       			    ec.name AS equipment_category,
                 et.name AS equipment_type,
                 es.name AS equipment_status,
@@ -50,85 +51,86 @@
                 users us1 ON wa.responsible_id = us1.id
               INNER JOIN
                 users us2 ON wa.verified_by_id = us2.id
+              WHERE eq1.id = " . $_GET['id'] . "
               ORDER BY wa.in_the_warehouse, wa.date DESC;";
       $query = mysqli_query($link, $sql);
       $num = mysqli_num_rows($query);
-      if ($num==0) {
-        ?>
-          <div class="container-fluid mt-3">
-            <div class="row">
-              <div class="col">
-                <h2>No hay equipos en el almacen cargados</h2>
-                <p>por favor comuniquese con el administrador para cargar los equipos en el almacen</p>
+        if ($num === 0){
+          ?>
+            <div class="container-fluid mt-3">
+              <div class="row">
+                <div class="col">
+                  <h1>Equipo eliminado</h1>
+                  <p>El equipo que intentas consultar ha sido eliminado, seras redirigido en <span id="contador" class="fw-bolder"></span> segundos al <span class="fw-bolder">Inicio</span></p>
+
+                  <meta http-equiv="refresh" content="5; URL=./login.php" />
+                </div>
               </div>
             </div>
+          <?php
+        }
+        ?>
+          <div class="container-fluid mt-3">
+            <?php
+              while($row = mysqli_fetch_array($query, MYSQLI_ASSOC)) {
+            ?>
+              <div class="row">
+                <div class="col-sm-4 col-12">
+                  <img
+                    src="<?php echo $row['image_path'] ?>"
+                    class="rounded mx-auto d-block"
+                    alt="equipo-numero-<?php echo $row['id'] ?>"
+                  >
+                </div>
+                <div class="col-sm-8 col-12">
+                  <p>Numero del Equipo: <?php echo $row['id_equipment'] ?></p>
+                  <p>Categoria del Equipo: <?php echo $row['equipment_category'] ?></p>
+                  <p>Tipo de Equipo: <?php echo $row['equipment_type'] ?><p>
+                  <p>Estatus del Equipo: <?php echo $row['equipment_status'] ?></p>
+                  <p>Se encuentra en el Almacen: <?php echo ($row['in_the_warehouse']) ? "Si" : "No" ?></p>
+                  <p>Fecha de ultimo cambio en Almacen: <?php echo $row['warehouse_changeover_date'] ?></p>
+                  <p>Tipo de Actividad: <?php echo $row['type_of_activity'] ?></p>
+                  <p>Actividad: <?php echo $row['activity'] ?></p>
+                  <p>Responsable: <?php echo $row['responsible'] ?></p>
+                  <p>Verificado por: <?php echo $row['verified_by'] ?></p>
+                </div>
+              </div>
+              <div class="row text-center mt-3">
+                <div class="col">
+                  <a href="view-equipment.php?id=<?php echo $row['id']?>" class="btn btn-primary mx-3">
+                    Retiro de Equipo
+                  </a>
+                  <a href="view-equipment.php?id=<?php echo $row['id']?>" class="btn btn-success mx-3">
+                    Devolucion de Equipo
+                  </a>
+                  <?php
+                    if ($_SESSION['user_type_id'] === "1" || $_SESSION['user_type_id'] === "2") {
+                  ?>
+                    <a href="crear-archivo.php?id=<?php echo $row['id']?>" class="btn btn-warning mx-3">
+                      Modificar Equipo
+                    </a>
+                    <a href="crear-archivo.php?id=<?php echo $row['id']?>" class="btn btn-danger mx-3">
+                      Eliminar Equipo
+                    </a>
+                  <?php
+                    }
+                  ?>
+                </div>
+              </div>
+            <?php
+              }
+            ?>
           </div>
         <?php
       } else {
         ?>
-          <div class="container-fluid text-center mt-3">
+          <div class="container-fluid mt-3">
             <div class="row">
               <div class="col">
-                <table class="table">
-                  <thead>
-                    <tr>
-                      <th scope="col"># Equipo</th></th>
-                      <th scope="col">Categoria del Equipo</th>
-                      <th scope="col">Tipo de Equipo</th>
-                      <th scope="col">Estatus del Equipo</th>
-                      <th scope="col">Imagen del Equipo</th>
-                      <th scope="col">Qr del Equipo</th>
-                      <th scope="col">En Almacen?</th>
-                      <th scope="col">Fecha de almacen o retiro</th>
-                      <th scope="col">Tipo de Actividad</th>
-                      <th scope="col">Actividad</th>
-                      <th scope="col">Responsable</th>
-                      <th scope="col">Verificado por</th>
-                      <th scope="col">Ver Equipo</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <?php
-                      while($row = mysqli_fetch_array($query, MYSQLI_ASSOC)) {
-                        ?>
-                          <tr
-                            <?php echo ($row['in_the_warehouse']) ? '' : 'class="table-danger"' ?>
-                          >
-                            <th scope="row"><?php echo $row['id_equipment'] ?></th>
-                            <td><?php echo $row['equipment_category'] ?></td>
-                            <td><?php echo $row['equipment_type'] ?></td>
-                            <td><?php echo $row['equipment_status'] ?></td>
-                            <td>
-                              <img
-                                src="<?php echo $row['image_path'] ?>"
-                                class="rounded mx-auto d-block"
-                                alt="equipo-numero-<?php echo $row['id'] ?>"
-                              >
-                            </td>
-                            <td>
-                              <img
-                                src="<?php echo $row['qr_equipment_image'] ?>"
-                                class="rounded mx-auto d-block"
-                                alt="equipo-numero-<?php echo $row['id'] ?>"
-                              >
-                            </td>
-                            <td><?php echo ($row['in_the_warehouse']) ? "Si" : "No" ?></td>
-                            <td><?php echo $row['warehouse_changeover_date'] ?></td>
-                            <td><?php echo $row['type_of_activity'] ?></td>
-                            <td><?php echo $row['activity'] ?></td>
-                            <td><?php echo $row['responsible'] ?></td>
-                            <td><?php echo $row['verified_by'] ?></td>
-                            <td>
-                              <a href="view-equipment.php?id=<?php echo $row['id']?>" class="btn btn-primary">
-                                Ver
-                              </a>
-                            </td>
-                          </tr>
-                        <?php
-                      }
-                    ?>
-                  </tbody>
-                </table>
+                <h1>No has seleccionado equipo</h1>
+                <p>Seras redirigido en <span id="contador" class="fw-bolder"></span> segundos al <span class="fw-bolder">Inicio</span></p>
+
+                <meta http-equiv="refresh" content="5; URL=./index.php" />
               </div>
             </div>
           </div>
