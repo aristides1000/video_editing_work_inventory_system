@@ -3,17 +3,19 @@
   include_once('./conexion.php');
   include_once('./includes/header.php');
 ?>
-  <title>Lista del Almacen</title>
+  <title>Vista del Equipo</title>
 <?php
   include_once('./includes/navbar.php');
   switch ($_SESSION['user_type_id']) {
     case "1":
     case "2":
+    case "3":
+    case "4":
       ?>
         <div class="container-fluid text-center mt-3">
           <div class="row">
             <div class="col">
-              <h1>Lista del Almacen</h1>
+              <h1>Vista del Equipo</h1>
             </div>
           </div>
         </div>
@@ -132,15 +134,6 @@
           </div>
         <?php
       }
-      break;
-    case "3":
-    case "4":
-      ?>
-        <h1>No deberias estar aqui</h1>
-        <p>No tienes permisos para estar en esta vista, seras redirigido en <span id="contador" class="fw-bolder"></span> segundos a <span class="fw-bolder">Retiro de Equipos</span></p>
-
-        <meta http-equiv="refresh" content="5; URL=./equipment_removal.php" />
-      <?php
       break;
     default:
       ?>
