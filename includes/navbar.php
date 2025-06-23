@@ -1,3 +1,7 @@
+<?php
+  session_start();
+  include_once('./conexion.php');
+?>
 </head>
 <body>
   <nav class="navbar navbar-expand-lg bg-body-tertiary">
@@ -7,11 +11,35 @@
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-        <div class="navbar-nav">
-          <a class="nav-link active" aria-current="page" href="#">Listado de equipos</a>
-          <a class="nav-link" href="#">Registro de usuarios</a>
-          <a class="nav-link" href="#">Retiro de equipos</a>
-          <a class="nav-link disabled" aria-disabled="true">Entrega de equipos</a>
+        <div class="navbar-nav w-100">
+          <?php
+            switch ($_SESSION['user_type_id']) {
+              case "1":
+              case "2":
+                ?>
+                  <a class="nav-link active" aria-current="page" href="./equipment_list.php">Listado de equipos</a>
+                  <a class="nav-link" href="./warehouse_list.php">lista del almacén</a>
+                  <a class="nav-link" href="./user_registration.php">Registro de usuarios</a>
+                  <a class="nav-link" href="./equipment_registration.php">Registro de Equipos</a>
+                  <span class="ms-auto"></span>
+                  <a class="nav-link" href="#">Cerrar sesión</a>
+                <?php
+                break;
+              case "3":
+              case "4":
+                ?>
+                  <a class="nav-link active" aria-current="page" href="./equipment_list.php">Listado de equipos</a>
+                  <span class="ms-auto"></span>
+                  <a class="nav-link" href="#">Cerrar sesión</a>
+                <?php
+                break;
+              default:
+                ?>
+                  <span class="ms-auto"></span>
+                  <a class="nav-link" href="./login.php">Iniciar sesión</a>
+                <?php
+            }
+          ?>
         </div>
       </div>
     </div>

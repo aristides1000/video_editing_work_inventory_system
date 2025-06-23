@@ -19,18 +19,18 @@
     case "2":
       ?>
         <h1>Hola <span class="fw-bolder"><?php echo $_SESSION['nickname'] ?></span>, Bienvenido a la pagina de inicio!</h1>
-        <p>Seras redirigido en <span id="contador" class="fw-bolder"></span> segundos a <span class="fw-bolder">Lista de equipos</span></p>
+        <p>Seras redirigido en <span id="contador" class="fw-bolder"></span> segundos a <span class="fw-bolder">Lista del almacén</span></p>
 
-        <!-- <meta http-equiv="refresh" content="5; URL=./equipment_list.php" /> -->
+        <meta http-equiv="refresh" content="5; URL=./warehouse_list.php" />
       <?php
       break;
     case "3":
     case "4":
       ?>
         <h1>Hola <span class="fw-bolder"><?php echo $_SESSION['nickname'] ?></span>, Bienvenido a la pagina de inicio!</h1>
-        <p>Seras redirigido en <span id="contador" class="fw-bolder"></span> segundos a <span class="fw-bolder">Retiro de Equipos</span></p>
+        <p>Seras redirigido en <span id="contador" class="fw-bolder"></span> segundos a <span class="fw-bolder">Lista de Equipos</span></p>
 
-        <meta http-equiv="refresh" content="5; URL=./equipment_removal.php" />
+        <meta http-equiv="refresh" content="5; URL=./equipment_list.php" />
       <?php
       break;
     default:

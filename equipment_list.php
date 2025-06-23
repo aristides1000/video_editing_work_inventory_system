@@ -9,6 +9,8 @@
   switch ($_SESSION['user_type_id']) {
     case "1":
     case "2":
+    case "3":
+    case "4":
       ?>
         <div class="container text-center mt-3">
           <div class="row">
@@ -100,15 +102,6 @@
           </div>
         <?php
       }
-      break;
-    case "3":
-    case "4":
-      ?>
-        <h1>No deberias estar aqui</h1>
-        <p>No tienes permisos para estar en esta vista, seras redirigido en <span id="contador" class="fw-bolder"></span> segundos a <span class="fw-bolder">Retiro de Equipos</span></p>
-
-        <meta http-equiv="refresh" content="5; URL=./equipment_removal.php" />
-      <?php
       break;
     default:
       ?>
