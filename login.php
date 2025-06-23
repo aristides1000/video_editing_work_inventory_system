@@ -20,6 +20,18 @@
     <button type="submit" class="btn btn-primary">Iniciar Sesión</button>
     <button type="reset" class="btn btn-warning">Limpiar</button>
   </form>
+
+<script>
+  const allNavbarLink = document.querySelectorAll('.nav-link');
+  allNavbarLink.forEach((navLink) => {
+    if (navLink.textContent === 'Iniciar sesión') {
+      navLink.classList.add('active');
+    } else {
+      navLink.classList.remove('active');
+    }
+  });
+</script>
+
 <?php
   include_once('./includes/footer.php');
 ?>

@@ -18,7 +18,7 @@
               case "2":
                 ?>
                   <a class="nav-link active" aria-current="page" href="./equipment_list.php">Listado de equipos</a>
-                  <a class="nav-link" href="./warehouse_list.php">lista del almacén</a>
+                  <a class="nav-link" href="./warehouse_list.php">Lista del almacén</a>
                   <a class="nav-link" href="./user_registration.php">Registro de usuarios</a>
                   <a class="nav-link" href="./equipment_registration.php">Registro de Equipos</a>
                   <span class="ms-auto"></span>

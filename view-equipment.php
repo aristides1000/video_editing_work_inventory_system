@@ -147,6 +147,13 @@
   }
 ?>
 
+<script>
+  const allNavbarLink = document.querySelectorAll('.nav-link');
+  allNavbarLink.forEach((navLink) => {
+    navLink.classList.remove('active');
+  });
+</script>
+
 <?php
   include_once('./includes/footer.php');
 ?>

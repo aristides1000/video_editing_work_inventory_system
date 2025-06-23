@@ -96,6 +96,17 @@
       <?php
   }
   ?>
+
+<script>
+  const allNavbarLink = document.querySelectorAll('.nav-link');
+  allNavbarLink.forEach((navLink) => {
+    if (navLink.textContent === 'Registro de usuarios') {
+      navLink.classList.add('active');
+    } else {
+      navLink.classList.remove('active');
+    }
+  });
+</script>
 <?php
   include_once('./includes/footer.php');
 ?>

@@ -152,6 +152,16 @@
   }
 ?>
 
+<script>
+  const allNavbarLink = document.querySelectorAll('.nav-link');
+  allNavbarLink.forEach((navLink) => {
+    if (navLink.textContent === 'Lista del almacén') {
+      navLink.classList.add('active');
+    } else {
+      navLink.classList.remove('active');
+    }
+  });
+</script>
 <?php
   include_once('./includes/footer.php');
 ?>
