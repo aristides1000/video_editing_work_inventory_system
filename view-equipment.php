@@ -61,7 +61,7 @@
               <div class="row">
                 <div class="col">
                   <h1>Equipo eliminado</h1>
-                  <p>El equipo que intentas consultar ha sido eliminado, seras redirigido en <span id="contador" class="fw-bolder"></span> segundos al <span class="fw-bolder">Inicio</span></p>
+                  <p>El equipo que intentas consultar ha sido eliminado, seras redirigido en <span id="counter" class="fw-bolder"></span> segundos al <span class="fw-bolder">Inicio</span></p>
 
                   <meta http-equiv="refresh" content="5; URL=./login.php" />
                 </div>
@@ -128,7 +128,7 @@
             <div class="row">
               <div class="col">
                 <h1>No has seleccionado equipo</h1>
-                <p>Seras redirigido en <span id="contador" class="fw-bolder"></span> segundos al <span class="fw-bolder">Inicio</span></p>
+                <p>Seras redirigido en <span id="counter" class="fw-bolder"></span> segundos al <span class="fw-bolder">Inicio</span></p>
 
                 <meta http-equiv="refresh" content="5; URL=./index.php" />
               </div>
@@ -140,7 +140,7 @@
     default:
       ?>
         <h1>No has iniciado sesion</h1>
-        <p>Por favor inicia sesion, seras redirigido en <span id="contador" class="fw-bolder"></span> segundos a <span class="fw-bolder">Inicio de Sesion</span></p>
+        <p>Por favor inicia sesion, seras redirigido en <span id="counter" class="fw-bolder"></span> segundos a <span class="fw-bolder">Inicio de Sesion</span></p>
 
         <meta http-equiv="refresh" content="5; URL=./login.php" />
       <?php

@@ -1,16 +1,18 @@
-/* Cuenta atras 5 segundos */
+/* countdown 5 seconds */
 
-let cuenta = 5;
-const contador = document.getElementById('contador');
-contador.textContent = cuenta;
+let count = 5;
+const counter = document.getElementById('counter');
+if (counter) {
+  counter.textContent = count;
 
-const intervalo = setInterval(function() {
-  cuenta--;
-  contador.textContent = cuenta;
+  const interval = setInterval(function() {
+    count--;
+    counter.textContent = count;
 
-  if (cuenta <= 0) {
-    clearInterval(intervalo);
-  }
-}, 1000);
+    if (count <= 0) {
+      clearInterval(interval);
+    }
+  }, 1000);
+}
 
-/* Fin cuenta atras 5 segundos */
+/* End countdown 5 seconds */

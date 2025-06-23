@@ -106,7 +106,7 @@
     default:
       ?>
         <h1>No has iniciado sesion</h1>
-        <p>Por favor inicia sesion, seras redirigido en <span id="contador" class="fw-bolder"></span> segundos a <span class="fw-bolder">Inicio de Sesion</span></p>
+        <p>Por favor inicia sesion, seras redirigido en <span id="counter" class="fw-bolder"></span> segundos a <span class="fw-bolder">Inicio de Sesion</span></p>
 
         <meta http-equiv="refresh" content="5; URL=./login.php" />
       <?php

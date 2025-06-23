@@ -11,7 +11,7 @@
     case "1":
       ?>
         <h1>Hola <span class="fw-bolder"><?php echo $_SESSION['nickname'] ?></span>, Bienvenido a la pagina de inicio!</h1>
-        <p>Seras redirigido en <span id="contador" class="fw-bolder"></span> segundos a <span class="fw-bolder">Registro de Usuarios</span></p>
+        <p>Seras redirigido en <span id="counter" class="fw-bolder"></span> segundos a <span class="fw-bolder">Registro de Usuarios</span></p>
 
         <meta http-equiv="refresh" content="5; URL=./user_registration.php" />
       <?php
@@ -19,7 +19,7 @@
     case "2":
       ?>
         <h1>Hola <span class="fw-bolder"><?php echo $_SESSION['nickname'] ?></span>, Bienvenido a la pagina de inicio!</h1>
-        <p>Seras redirigido en <span id="contador" class="fw-bolder"></span> segundos a <span class="fw-bolder">Lista del almacén</span></p>
+        <p>Seras redirigido en <span id="counter" class="fw-bolder"></span> segundos a <span class="fw-bolder">Lista del almacén</span></p>
 
         <meta http-equiv="refresh" content="5; URL=./warehouse_list.php" />
       <?php
@@ -28,7 +28,7 @@
     case "4":
       ?>
         <h1>Hola <span class="fw-bolder"><?php echo $_SESSION['nickname'] ?></span>, Bienvenido a la pagina de inicio!</h1>
-        <p>Seras redirigido en <span id="contador" class="fw-bolder"></span> segundos a <span class="fw-bolder">Lista de Equipos</span></p>
+        <p>Seras redirigido en <span id="counter" class="fw-bolder"></span> segundos a <span class="fw-bolder">Lista de Equipos</span></p>
 
         <meta http-equiv="refresh" content="5; URL=./equipment_list.php" />
       <?php
