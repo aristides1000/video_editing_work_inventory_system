@@ -22,7 +22,7 @@
                   <a class="nav-link" href="./user_registration.php">Registro de usuarios</a>
                   <a class="nav-link" href="./equipment_registration.php">Registro de Equipos</a>
                   <span class="ms-auto"></span>
-                  <a class="nav-link" href="#">Cerrar sesión</a>
+                  <a class="nav-link" href="./logout.php">Cerrar sesión</a>
                 <?php
                 break;
               case "3":
@@ -30,7 +30,7 @@
                 ?>
                   <a class="nav-link active" aria-current="page" href="./equipment_list.php">Listado de equipos</a>
                   <span class="ms-auto"></span>
-                  <a class="nav-link" href="#">Cerrar sesión</a>
+                  <a class="nav-link" href="./logout.php">Cerrar sesión</a>
                 <?php
                 break;
               default:
