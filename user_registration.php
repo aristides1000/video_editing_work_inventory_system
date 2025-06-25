@@ -9,6 +9,7 @@
 
   switch ($_SESSION['user_type_id']) {
     case "1":
+    case "2":
       $sql = "SELECT * FROM types_of_user";
       $query = mysqli_query($link, $sql);
       $num = mysqli_num_rows($query);
@@ -55,11 +56,14 @@
               <input type="password" class="form-control" id="password" name="password">
             </div>
             <div class="mb-3">
-              <label for="user_type_id" class="form-label">tipo de </label>
+              <label for="user_type_id" class="form-label">Tipo de usuario</label>
               <select class="form-select" aria-label="Tipo de usuario" id="user_type_id" name="user_type_id">
                 <option selected>Seleccione el Tipo de Usuario</option>
                 <?php
                   while($row = mysqli_fetch_array($query, MYSQLI_ASSOC)) {
+                    if ($_SESSION['user_type_id'] == 2 && $row['id'] == 1) {
+                      continue;
+                    }
                     echo '<option value="' . $row['id'] . '">' . $row['name'] . '</option>';
                   }
                 ?>
@@ -70,14 +74,6 @@
         <?php
         break;
       }
-    case "2":
-      ?>
-        <h1>No deberias estar aqui</h1>
-        <p>No tienes permisos para estar en esta vista, seras redirigido en <span id="counter" class="fw-bolder"></span> segundos a <span class="fw-bolder">Lista de Equipos</span></p>
-
-        <meta http-equiv="refresh" content="5; URL=./equipment_list.php" />
-      <?php
-      break;
     case "3":
     case "4":
       ?>
