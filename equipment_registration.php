@@ -92,6 +92,7 @@
             <div class="mb-3">
               <label for="image_path" class="form-label">Cargue la imagen</label>
               <input class="form-control" type="file" id="image_path" name="image_path">
+              <div id="imageHelp" class="form-text">Por favor, suba solo archivos de imagenes con extenciones .jpg .png o .gif</div>
             </div>
             <button type="submit" class="btn btn-primary">Submit</button>
           </form>

@@ -49,7 +49,7 @@
             <div class="mb-3">
               <label for="nickname" class="form-label">Nombre de usuario</label>
               <input type="text" class="form-control" id="nickname" aria-describedby="nicknameHelp" name="nickname">
-              <div id="emailHelp" class="form-text">Por favor, escriba su nombre de usuario sin caracteres de espacio</div>
+              <div id="nicknameHelp" class="form-text">Por favor, escriba su nombre de usuario sin caracteres de espacio</div>
             </div>
             <div class="mb-3">
               <label for="password" class="form-label">Password</label>
