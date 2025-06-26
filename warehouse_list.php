@@ -99,14 +99,14 @@
                             <td>
                               <img
                                 src="./equipment_image/<?php echo $row['image_path'] ?>"
-                                class="rounded mx-auto d-block"
+                                class="rounded mx-auto d-block resize-image-list"
                                 alt="equipo-numero-<?php echo $row['id'] ?>"
                               >
                             </td>
                             <td>
                               <img
                                 src="./qr_equipment_image/<?php echo $row['qr_equipment_image'] ?>"
-                                class="rounded mx-auto d-block"
+                                class="rounded mx-auto d-block resize-image-list"
                                 alt="equipo-numero-<?php echo $row['id'] ?>"
                               >
                             </td>

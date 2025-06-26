@@ -78,7 +78,7 @@
                 <div class="col-sm-4 col-12">
                   <img
                     src="./equipment_image/<?php echo $row['image_path'] ?>"
-                    class="rounded mx-auto d-block"
+                    class="rounded mx-auto d-block resize-image-individual"
                     alt="equipo-numero-<?php echo $row['id'] ?>"
                   >
                 </div>

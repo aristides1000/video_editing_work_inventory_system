@@ -1,0 +1,9 @@
+.resize-image-list {
+  height: 150px;
+  width: auto;
+}
+
+.resize-image-individual {
+  max-height: 200px;
+  width: auto;
+}

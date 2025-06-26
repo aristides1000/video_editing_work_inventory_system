@@ -60,7 +60,7 @@
         mysqli_query($link, $sql_equipments);
 
         $sql_warehouses = "INSERT INTO warehouses (equipment_id, in_the_warehouse, type_of_activity_id, activity, responsible_id, verified_by_id)
-          VALUES (". (intval($next_id) - 1) .", 1, 3, 'almacenado', ". $_SESSION['id'] .", ". $_SESSION['id'] .")";
+          VALUES (". intval($next_id) .", 1, 3, 'almacenado', ". $_SESSION['id'] .", ". $_SESSION['id'] .")";
 
         mysqli_query($link, $sql_warehouses);
         if (mysqli_error($link)) {
