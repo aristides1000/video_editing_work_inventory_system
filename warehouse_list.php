@@ -98,14 +98,14 @@
                             <td><?php echo $row['equipment_status'] ?></td>
                             <td>
                               <img
-                                src="<?php echo $row['image_path'] ?>"
+                                src="./equipment_image/<?php echo $row['image_path'] ?>"
                                 class="rounded mx-auto d-block"
                                 alt="equipo-numero-<?php echo $row['id'] ?>"
                               >
                             </td>
                             <td>
                               <img
-                                src="<?php echo $row['qr_equipment_image'] ?>"
+                                src="./qr_equipment_image/<?php echo $row['qr_equipment_image'] ?>"
                                 class="rounded mx-auto d-block"
                                 alt="equipo-numero-<?php echo $row['id'] ?>"
                               >
@@ -117,7 +117,7 @@
                             <td><?php echo $row['responsible'] ?></td>
                             <td><?php echo $row['verified_by'] ?></td>
                             <td>
-                              <a href="view-equipment.php?id=<?php echo $row['id']?>" class="btn btn-primary">
+                              <a href="view_equipment.php?id=<?php echo $row['id']?>" class="btn btn-primary">
                                 Ver
                               </a>
                             </td>

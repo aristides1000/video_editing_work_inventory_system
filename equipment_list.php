@@ -79,14 +79,14 @@
                             <td><?php echo $row['equipment_status'] ?></td>
                             <td>
                               <img
-                                src="<?php echo $row['image_path'] ?>"
+                                src="./equipment_image/<?php echo $row['image_path'] ?>"
                                 class="rounded mx-auto d-block"
                                 alt="equipo-numero-<?php echo $row['id'] ?>"
                               >
                             </td>
                             <td>
                               <img
-                                src="<?php echo $row['qr_equipment_image'] ?>"
+                                src="./qr_equipment_image/<?php echo $row['qr_equipment_image'] ?>"
                                 class="rounded mx-auto d-block"
                                 alt="equipo-numero-<?php echo $row['id'] ?>"
                               >
