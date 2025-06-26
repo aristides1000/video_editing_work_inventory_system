@@ -3,5 +3,5 @@
   define("DATABASE_USERNAME", "root");
   define("DATABASE_PASSWORD", "");
   define("DATABASE_NAME", "video_inventory_system_TEST");
-  define("SERVER_HOSTNAME", "localhost");
+  define("SERVER_HOSTNAME", "http://localhost");
 ?>
