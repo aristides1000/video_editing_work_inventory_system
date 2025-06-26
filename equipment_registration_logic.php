@@ -1,8 +1,12 @@
 <?php
+  error_reporting(E_ALL);
+  ini_set('display_errors', 1);
+  session_start();
   session_start();
   include 'conexion.php';
   include_once('./includes/header.php');
   include_once('./includes/navbar.php');
+  include_once('./phpqrcode/qrlib.php');
 
   if(isset($_POST['equipment_category_id']) && $_POST['equipment_category_id']!='' && isset($_POST['type_of_equipment_id']) && $_POST['type_of_equipment_id']!='' && isset($_POST['equipment_status_id']) && $_POST['equipment_status_id']!='' && isset($_FILES['image_path']['name']) && $_FILES['image_path']['name']!='') {
     #llegaron los datos
@@ -41,27 +45,40 @@
       <?php
     } else { # el tipo de archivo es correcto se efectua la carga del producto
       if ($tipo !== false) { # Si la foto ha sido cargada
-        /* Llegue hasta aqui 25jun25 */
-        $sql = "INSERT INTO users (nickname, password, user_type_id)
-                VALUES ('$_POST[nickname]', '".md5($_POST['password'])."', '$_POST[user_type_id]');";
 
-        mysqli_query($link, $sql);
+        $result = mysqli_query($link, "SHOW TABLE STATUS LIKE 'equipments'");
+        $row = $result->fetch_assoc();
+        $next_id = $row['Auto_increment'];
+
+        # nombres de las imagenes de los equipos y los qr de los equipos
+        $imageExtention = ($tipo[2] == 1) ? '.gif' : (($tipo[2] == 2) ? '.jpg' : '.png');
+        $equipmentImageName = 'equipment-image-' . $next_id . $imageExtention;
+        $qrEquipmentImageName = 'qr-equipment-image-' . $next_id . '.png';
+
+        $sql_equipments = "INSERT INTO equipments (equipment_category_id, type_of_equipment_id, equipment_status_id, image_path, qr_equipment_image)
+          VALUES ('$_POST[equipment_category_id]', '$_POST[type_of_equipment_id]', '$_POST[equipment_status_id]', '". $equipmentImageName ."', '". $qrEquipmentImageName ."');";
+        mysqli_query($link, $sql_equipments);
+
+        $sql_warehouses = "INSERT INTO warehouses (equipment_id, in_the_warehouse, type_of_activity_id, activity, responsible_id, verified_by_id)
+          VALUES (". (intval($next_id) - 1) .", 1, 3, 'almacenado', ". $_SESSION['id'] .", ". $_SESSION['id'] .")";
+
+        mysqli_query($link, $sql_warehouses);
         if (mysqli_error($link)) {
           ?>
-            <div class="modal fade" id="userRegistrationError" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div class="modal fade" id="equipmentRegistrationError" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
               <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
                   <div class="modal-header">
                     <h1 class="modal-title fs-5" id="staticBackdropLabel">Error al Registrar</h1>
-                    <a href="./user_registration.php" class="ms-auto">
+                    <a href="./equipment_registration.php" class="ms-auto">
                       <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </a>
                   </div>
                   <div class="modal-body">
-                    Error en el registro de usuario. Por Favor intente de nuevo.
+                    Error en el registro del equipo. Por Favor intente de nuevo.
                   </div>
                   <div class="modal-footer">
-                    <a href="./user_registration.php">
+                    <a href="./equipment_registration.php">
                       <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                     </a>
                   </div>
@@ -70,26 +87,43 @@
             </div>
             <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js" integrity="sha384-j1CDi7MgGQ12Z7Qab0qlWQ/Qqz24Gc6BM0thvEMVjHnfYGF0rmFCozFSxQBxwHKO" crossorigin="anonymous"></script>
             <script>
-              const userRegistrationError = new bootstrap.Modal(document.getElementById('userRegistrationError'));
-              userRegistrationError.show();
+              const equipmentRegistrationError = new bootstrap.Modal(document.getElementById('equipmentRegistrationError'));
+              equipmentRegistrationError.show();
             </script>
           <?php
-        } else {
+        } else { # Si no da error la insercion;
+          # guardo la imagen del equipo en servidor
+          $dir_equipment_image = './equipment_image/';
+          if (!file_exists($dir_equipment_image)) mkdir($dir_equipment_image);
+          $equipmentImagePath = $dir_equipment_image . $equipmentImageName;
+          copy($_FILES['image_path']['tmp_name'], $equipmentImagePath);
+
+          # creo y guardo el qr del equipo en servidor
+          $dir_qr_image = './qr_equipment_image/';
+          if (!file_exists($dir_qr_image)) mkdir($dir_qr_image);
+          $qrEquipmentImagePath = $dir_qr_image . $qrEquipmentImageName; # donde lo va a guardar y con cual nombre
+          $size = 5; # tamanio de la imagen
+          $level = 'M'; # Precision del qr, puede ser ()
+          $frameSize = 2; # el padding blanco del qr
+          $content = SERVER_HOSTNAME . '/video_editing_work_inventory_system/view_equipment.php?id=' . intval($next_id); # es lo que va a monstrar nuestro codigo qr
+
+          #generamos el qr con la siguiente clase:
+          QRcode::png($content, $qrEquipmentImagePath, $level, $size, $frameSize);
           ?>
-            <div class="modal fade" id="successfulUserRegistration" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div class="modal fade" id="successfulEquipmentRegistration" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
               <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
                   <div class="modal-header">
                     <h1 class="modal-title fs-5" id="staticBackdropLabel">Registro Exitoso</h1>
-                    <a href="./user_registration.php" class="ms-auto">
+                    <a href="./equipment_registration_registration.php" class="ms-auto">
                       <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </a>
                   </div>
                   <div class="modal-body">
-                    Usuario registrado exitosamente.
+                    Equipo registrado exitosamente.
                   </div>
                   <div class="modal-footer">
-                    <a href="./user_registration.php">
+                    <a href="./equipment_registration_registration.php">
                       <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                     </a>
                   </div>
@@ -98,8 +132,8 @@
             </div>
             <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js" integrity="sha384-j1CDi7MgGQ12Z7Qab0qlWQ/Qqz24Gc6BM0thvEMVjHnfYGF0rmFCozFSxQBxwHKO" crossorigin="anonymous"></script>
             <script>
-              const successfulUserRegistration = new bootstrap.Modal(document.getElementById('successfulUserRegistration'));
-              successfulUserRegistration.show();
+              const successfulEquipmentRegistration = new bootstrap.Modal(document.getElementById('successfulEquipmentRegistration'));
+              successfulEquipmentRegistration.show();
             </script>
           <?php
         }
