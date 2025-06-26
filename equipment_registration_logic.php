@@ -115,7 +115,7 @@
                 <div class="modal-content">
                   <div class="modal-header">
                     <h1 class="modal-title fs-5" id="staticBackdropLabel">Registro Exitoso</h1>
-                    <a href="./equipment_registration_registration.php" class="ms-auto">
+                    <a href="./equipment_registration.php" class="ms-auto">
                       <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </a>
                   </div>
@@ -123,7 +123,7 @@
                     Equipo registrado exitosamente.
                   </div>
                   <div class="modal-footer">
-                    <a href="./equipment_registration_registration.php">
+                    <a href="./equipment_registration.php">
                       <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                     </a>
                   </div>
