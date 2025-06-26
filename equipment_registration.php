@@ -116,6 +116,7 @@
         <meta http-equiv="refresh" content="5; URL=./login.php" />
       <?php
   }
+  echo SERVER_HOSTNAME;
   ?>
 
 <script>
