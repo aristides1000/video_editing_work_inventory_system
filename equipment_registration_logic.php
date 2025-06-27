@@ -2,7 +2,6 @@
   error_reporting(E_ALL);
   ini_set('display_errors', 1);
   session_start();
-  session_start();
   include 'conexion.php';
   include_once('./includes/header.php');
   include_once('./includes/navbar.php');
@@ -46,9 +45,6 @@
     } else { # el tipo de archivo es correcto se efectua la carga del producto
       if ($tipo !== false) { # Si la foto ha sido cargada
 
-        /* $result = mysqli_query($link, "SHOW TABLE STATUS LIKE 'equipments'");
-        $row = $result->fetch_assoc();
-        $next_id = $row['Auto_increment']; */
         $result = mysqli_query($link, "SHOW CREATE TABLE equipments");
         $row = mysqli_fetch_assoc($result);
         $create_table = $row['Create Table'];
