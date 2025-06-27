@@ -121,6 +121,18 @@
                   </div>
                   <div class="modal-body">
                     Equipo registrado exitosamente.
+                    Prueba:
+                    <?php
+                      $result = mysqli_query($link, "SHOW CREATE TABLE equipments");
+                      $row = mysqli_fetch_assoc($result);
+                      $create_table = $row['Create Table'];
+
+                      // Extraer el valor AUTO_INCREMENT
+                      preg_match('/AUTO_INCREMENT=(\d+)/', $create_table, $matches);
+                      $auto_increment = $matches[1] ?? null;
+
+                      echo "Valor AUTO_INCREMENT: " . $auto_increment;
+                    ?>
                   </div>
                   <div class="modal-footer">
                     <a href="./equipment_registration.php">
