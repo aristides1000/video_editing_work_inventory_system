@@ -27,7 +27,7 @@
                 eq1.image_path,
                 eq1.qr_equipment_image,
                 wa.in_the_warehouse,
-                wa.date AS warehouse_changeover_date,
+                CONVERT_TZ(wa.date, '+00:00', '-04:00') AS warehouse_changeover_date,
                 ta.name AS type_of_activity,
                 wa.activity,
                 us1.nickname AS responsible,

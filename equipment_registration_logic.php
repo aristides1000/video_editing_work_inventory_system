@@ -57,8 +57,6 @@
         preg_match('/AUTO_INCREMENT=(\d+)/', $create_table, $matches);
         $next_id = $matches[1] ?? null;
 
-        echo "Valor AUTO_INCREMENT: " . $auto_increment;
-
         # nombres de las imagenes de los equipos y los qr de los equipos
         $imageExtention = ($tipo[2] == 1) ? '.gif' : (($tipo[2] == 2) ? '.jpg' : '.png');
         $equipmentImageName = 'equipment-image-' . $next_id . $imageExtention;
