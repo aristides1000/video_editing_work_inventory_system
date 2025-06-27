@@ -50,7 +50,7 @@
                 users us1 ON wa.responsible_id = us1.id
               INNER JOIN
                 users us2 ON wa.verified_by_id = us2.id
-              ORDER BY wa.in_the_warehouse, wa.date DESC;";
+              ORDER BY wa.in_the_warehouse, warehouse_changeover_date DESC;";
       $query = mysqli_query($link, $sql);
       $num = mysqli_num_rows($query);
       if ($num==0) {
