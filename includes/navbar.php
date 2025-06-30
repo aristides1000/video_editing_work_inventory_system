@@ -34,7 +34,7 @@
                 ?>
                   <a class="nav-link active" aria-current="page" href="./equipment_list.php">Listado de equipos</a>
                   <span class="ms-auto"></span>
-                  <div class="tdnn mx-3">
+                  <div class="tdnn me-3">
                     <div class="moon">
                     </div>
                   </div>
@@ -44,7 +44,7 @@
               default:
                 ?>
                   <span class="ms-auto"></span>
-                  <div class="tdnn mx-3">
+                  <div class="tdnn me-3">
                     <div class="moon">
                     </div>
                   </div>
