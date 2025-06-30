@@ -22,6 +22,10 @@
                   <a class="nav-link" href="./user_registration.php">Registro de usuarios</a>
                   <a class="nav-link" href="./equipment_registration.php">Registro de equipos</a>
                   <span class="ms-auto"></span>
+                  <div class="tdnn">
+                    <div class="moon">
+                    </div>
+                  </div>
                   <a class="nav-link" href="./logout.php">Cerrar sesión</a>
                 <?php
                 break;
@@ -30,6 +34,10 @@
                 ?>
                   <a class="nav-link active" aria-current="page" href="./equipment_list.php">Listado de equipos</a>
                   <span class="ms-auto"></span>
+                  <div class="tdnn">
+                    <div class="moon">
+                    </div>
+                  </div>
                   <a class="nav-link" href="./logout.php">Cerrar sesión</a>
                 <?php
                 break;
