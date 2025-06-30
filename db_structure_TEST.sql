@@ -81,6 +81,7 @@ CREATE TABLE IF NOT EXISTS equipments (
   equipment_status_id INT NOT NULL,
   image_path VARCHAR(255),
   qr_equipment_image VARCHAR(255),
+  is_deleted BOOLEAN NOT NULL,
   PRIMARY KEY (id),
   FOREIGN KEY(equipment_category_id) REFERENCES equipment_categories(id),
   FOREIGN KEY(type_of_equipment_id) REFERENCES equipment_types(id),
@@ -88,9 +89,9 @@ CREATE TABLE IF NOT EXISTS equipments (
 );
 
 INSERT INTO equipments (equipment_category_id, type_of_equipment_id, equipment_status_id, image_path, qr_equipment_image)
-VALUES (1, 1, 1, "default_image.png", "default_qr.png"),
-(2, 3, 2, "default_image.png", "default_qr.png"),
-(1, 2, 1, "default_image.png", "default_qr.png");
+VALUES (1, 1, 1, "default_image.png", "default_qr.png", 0),
+(2, 3, 2, "default_image.png", "default_qr.png", 0),
+(1, 2, 1, "default_image.png", "default_qr.png", 0);
 
 CREATE TABLE IF NOT EXISTS warehouses (
   id INT NOT NULL AUTO_INCREMENT,
@@ -101,6 +102,7 @@ CREATE TABLE IF NOT EXISTS warehouses (
   activity VARCHAR(255) NOT NULL,
   responsible_id INT NOT NULL,
   verified_by_id INT NOT NULL,
+  is_deleted BOOLEAN NOT NULL,
   PRIMARY KEY (id),
   FOREIGN KEY(equipment_id) REFERENCES equipments(id),
   FOREIGN KEY(type_of_activity_id) REFERENCES types_of_activities(id),
@@ -108,7 +110,7 @@ CREATE TABLE IF NOT EXISTS warehouses (
   FOREIGN KEY(verified_by_id) REFERENCES users(id)
 );
 
-INSERT INTO warehouses (equipment_id, in_the_warehouse, type_of_activity_id, activity, responsible_id, verified_by_id)
-VALUES (1, 0, 1, "video del parque", 4, 3),
-(2, 0, 2, "sesion en la playa", 4, 3),
-(3, 1, 3, "almacenado", 4, 3);
+INSERT INTO warehouses (equipment_id, in_the_warehouse, type_of_activity_id, activity, responsible_id, verified_by_id, is_deleted)
+VALUES (1, 0, 1, "video del parque", 4, 3, 0),
+(2, 0, 2, "sesion en la playa", 4, 3, 0),
+(3, 1, 3, "almacenado", 4, 3, 0);

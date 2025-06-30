@@ -29,6 +29,7 @@
                 es.name AS equipment_status,
                 eq1.image_path,
                 eq1.qr_equipment_image,
+                eq1.is_deleted,
                 wa.in_the_warehouse,
                 CONVERT_TZ(wa.date, '+00:00', '-04:00') AS warehouse_changeover_date,
                 ta.name AS type_of_activity,
@@ -60,10 +61,10 @@
             <div class="container-fluid mt-3">
               <div class="row">
                 <div class="col">
-                  <h1>Equipo eliminado</h1>
-                  <p>El equipo que intentas consultar ha sido eliminado, seras redirigido en <span id="counter" class="fw-bolder"></span> segundos al <span class="fw-bolder">Inicio</span></p>
+                  <h1>Equipo no registrado</h1>
+                  <p>El equipo que intentas consultar no se encuentra registrado, seras redirigido en <span id="counter" class="fw-bolder"></span> segundos al <span class="fw-bolder">Inicio</span></p>
 
-                  <meta http-equiv="refresh" content="5; URL=./login.php" />
+                  <meta http-equiv="refresh" content="5; URL=./index.php" />
                 </div>
               </div>
             </div>
@@ -93,6 +94,7 @@
                   <p>Actividad: <?php echo $row['activity'] ?></p>
                   <p>Responsable: <?php echo $row['responsible'] ?></p>
                   <p>Verificado por: <?php echo $row['verified_by'] ?></p>
+                  <p>Está Elimininado?: <?php echo ($row['is_deleted']) ? "Si" : "No" ?></p></p>
                 </div>
               </div>
               <div class="row text-center mt-3">

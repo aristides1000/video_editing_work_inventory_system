@@ -26,6 +26,7 @@
                 es.name AS equipment_status,
                 eq1.image_path,
                 eq1.qr_equipment_image,
+                eq1.is_deleted,
                 wa.in_the_warehouse,
                 CONVERT_TZ(wa.date, '+00:00', '-04:00') AS warehouse_changeover_date,
                 ta.name AS type_of_activity,
@@ -48,6 +49,7 @@
                 users us1 ON wa.responsible_id = us1.id
               INNER JOIN
                 users us2 ON wa.verified_by_id = us2.id
+              WHERE wa.is_deleted = 0
               ORDER BY wa.in_the_warehouse, warehouse_changeover_date DESC;";
       $query = mysqli_query($link, $sql);
       $num = mysqli_num_rows($query);

@@ -26,7 +26,8 @@
                 equipment_types.name AS equipment_type,
                 equipments_status.name AS equipment_status,
                 equipments.image_path,
-                equipments.qr_equipment_image
+                equipments.qr_equipment_image,
+                equipments.is_deleted
               FROM
                 equipments
               INNER JOIN
@@ -35,6 +36,7 @@
                 equipment_types ON equipments.type_of_equipment_id = equipment_types.id
               INNER JOIN
                 equipments_status ON equipments.equipment_status_id = equipments_status.id
+              WHERE equipments.is_deleted = 0
               ORDER BY
               	equipments_status.id DESC;";
       $query = mysqli_query($link, $sql);
