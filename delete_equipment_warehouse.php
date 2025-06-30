@@ -63,7 +63,7 @@
           $sql_delete_warehouses = "UPDATE warehouses SET is_deleted = 1 WHERE id = ". $row['warehouse_id'].";";
           mysqli_query($link, $sql_delete_warehouses);
 
-          $sql_delete_equipments = "UPDATE equipments SET is_deleted = 1 WHERE id = ". $row['id_equipment'].";";
+          $sql_delete_equipments = "UPDATE equipments SET is_deleted = 1 WHERE id = ". $_GET['id_equipment'] .";";
           mysqli_query($link, $sql_delete_equipments);
 
           if (mysqli_error($link)) {
