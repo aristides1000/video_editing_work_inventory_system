@@ -44,6 +44,10 @@
               default:
                 ?>
                   <span class="ms-auto"></span>
+                  <div class="tdnn">
+                    <div class="moon">
+                    </div>
+                  </div>
                   <a class="nav-link" href="./login.php">Iniciar sesión</a>
                 <?php
             }
