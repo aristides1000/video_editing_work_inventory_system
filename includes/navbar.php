@@ -22,7 +22,7 @@
                   <a class="nav-link" href="./user_registration.php">Registro de usuarios</a>
                   <a class="nav-link" href="./equipment_registration.php">Registro de equipos</a>
                   <span class="ms-auto"></span>
-                  <div class="tdnn mx-3">
+                  <div class="tdnn me-3">
                     <div class="moon">
                     </div>
                   </div>
