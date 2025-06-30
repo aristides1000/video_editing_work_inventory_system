@@ -111,9 +111,34 @@
                     <a href="crear-archivo.php?id=<?php echo $row['id']?>" class="btn btn-warning mx-3">
                       Modificar Equipo
                     </a>
-                    <a href="crear-archivo.php?id=<?php echo $row['id']?>" class="btn btn-danger mx-3">
+                    <!-- <a href="crear-archivo.php?id=<?php echo $row['id']?>" class="btn btn-danger mx-3">
                       Eliminar Equipo
-                    </a>
+                    </a> -->
+                    <!-- Button delete equipment trigger modal -->
+                    <button type="button" class="btn btn-danger mx-3" data-bs-toggle="modal" data-bs-target="#deleteEquipmentModal">
+                      Eliminar Equipo
+                    </button>
+
+                    <!-- Modal delete equipment -->
+                    <div class="modal fade" id="deleteEquipmentModal" tabindex="-1" aria-labelledby="deleteEquipmentModalLabel" aria-hidden="true">
+                      <div class="modal-dialog">
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <h1 class="modal-title fs-5" id="deleteEquipmentModalLabel">Eliminar Equipo</h1>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                          </div>
+                          <div class="modal-body">
+                            ¿Está seguro que desea eliminar éste equipo?
+                          </div>
+                          <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <a href="delete_equipment_warehouse.php?id_equipment=<?php echo $row['id_equipment']?>" class="btn btn-danger mx-3">
+                              Eliminar Equipo
+                            </a>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
                   <?php
                     }
                   ?>
