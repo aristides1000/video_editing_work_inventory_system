@@ -69,7 +69,7 @@
                 ?>
               </select>
             </div>
-            <button type="submit" class="btn btn-primary">Submit</button>
+            <button type="submit" class="btn btn-primary">Registrar Usuario</button>
           </form>
         <?php
         break;

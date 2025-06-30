@@ -94,7 +94,7 @@
               <input class="form-control" type="file" id="image_path" name="image_path">
               <div id="imageHelp" class="form-text">Por favor, suba solo archivos de imagenes con extenciones .jpg .png o .gif</div>
             </div>
-            <button type="submit" class="btn btn-primary">Submit</button>
+            <button type="submit" class="btn btn-primary">Registrar Equipo</button>
           </form>
         <?php
         break;
@@ -116,7 +116,6 @@
         <meta http-equiv="refresh" content="5; URL=./login.php" />
       <?php
   }
-  echo SERVER_HOSTNAME;
   ?>
 
 <script>
