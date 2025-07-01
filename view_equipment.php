@@ -108,12 +108,32 @@
                   <?php
                     if ($_SESSION['user_type_id'] === "1" || $_SESSION['user_type_id'] === "2") {
                   ?>
-                    <a href="crear-archivo.php?id=<?php echo $row['id']?>" class="btn btn-warning mx-3">
+                    <!-- Button modify equipment trigger modal -->
+                    <button type="button" class="btn btn-warning mx-3" data-bs-toggle="modal" data-bs-target="#updateEquipmentModal">
                       Modificar Equipo
-                    </a>
-                    <!-- <a href="crear-archivo.php?id=<?php echo $row['id']?>" class="btn btn-danger mx-3">
-                      Eliminar Equipo
-                    </a> -->
+                    </button>
+
+                    <!-- Modal modify equipment -->
+                    <div class="modal fade" id="updateEquipmentModal" tabindex="-1" aria-labelledby="updateEquipmentModalLabel" aria-hidden="true">
+                      <div class="modal-dialog">
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <h1 class="modal-title fs-5" id="updateEquipmentModalLabel">Modificar Equipo</h1>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                          </div>
+                          <div class="modal-body">
+                            ¿Está seguro que desea modificar éste equipo?
+                          </div>
+                          <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <a href="update_equipment_warehouse.php?id_equipment=<?php echo $row['id_equipment']?>" class="btn btn-warning mx-3">
+                              Modificar Equipo
+                            </a>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
                     <!-- Button delete equipment trigger modal -->
                     <button type="button" class="btn btn-danger mx-3" data-bs-toggle="modal" data-bs-target="#deleteEquipmentModal">
                       Eliminar Equipo
