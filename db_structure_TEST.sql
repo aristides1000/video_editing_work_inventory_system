@@ -88,7 +88,7 @@ CREATE TABLE IF NOT EXISTS equipments (
   FOREIGN KEY(equipment_status_id) REFERENCES equipments_status(id)
 );
 
-INSERT INTO equipments (equipment_category_id, type_of_equipment_id, equipment_status_id, image_path, qr_equipment_image)
+INSERT INTO equipments (equipment_category_id, type_of_equipment_id, equipment_status_id, image_path, qr_equipment_image, is_deleted)
 VALUES (1, 1, 1, "default_image.png", "default_qr.png", 0),
 (2, 3, 2, "default_image.png", "default_qr.png", 0),
 (1, 2, 1, "default_image.png", "default_qr.png", 0);
