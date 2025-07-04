@@ -102,7 +102,7 @@
               <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
                   <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="staticBackdropLabel">Error al Cargar los de seleccionables</h1>
+                    <h1 class="modal-title fs-5" id="staticBackdropLabel">Error al cargar los datos de campos seleccionables</h1>
                     <a href="./user_registration.php" class="ms-auto">
                       <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </a>
@@ -193,8 +193,8 @@
                       </div>
                       <p>Fecha de ultimo cambio en Almacen: <?php echo $row_general['warehouse_changeover_date'] ?></p>
                       <div class="mb-3">
-                        <label for="type_of_activity_id" class="form-label">Estatus del equipo</label>
-                        <select class="form-select" aria-label="Estatus del equipo" id="type_of_activity_id" name="type_of_activity_id">
+                        <label for="type_of_activity_id" class="form-label">Tipo de Actividad</label>
+                        <select class="form-select" aria-label="Tipo de Actividad" id="type_of_activity_id" name="type_of_activity_id">
                           <?php
                             while($row = mysqli_fetch_array($query_types_of_activities, MYSQLI_ASSOC)) {
                               $selected = ($row['name'] === $row_general['type_of_activity']) ? 'selected' : '';

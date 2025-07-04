@@ -159,6 +159,10 @@
                         </div>
                       </div>
                     </div>
+
+                    <a href="equipment_movements.php?id_equipment=<?php echo $row['id_equipment']?>" class="btn btn-info mx-3">
+                      Movimientos del Equipo
+                    </a>
                   <?php
                     }
                   ?>
