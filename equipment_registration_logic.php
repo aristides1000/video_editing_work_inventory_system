@@ -95,13 +95,13 @@
         } else { # Si no da error la insercion;
           # guardo la imagen del equipo en servidor
           $dir_equipment_image = './equipment_image/';
-          if (!file_exists($dir_equipment_image)) mkdir($dir_equipment_image);
+          if (!file_exists($dir_equipment_image)) mkdir($dir_equipment_image, 0775, true);
           $equipmentImagePath = $dir_equipment_image . $equipmentImageName;
           copy($_FILES['image_path']['tmp_name'], $equipmentImagePath);
 
           # creo y guardo el qr del equipo en servidor
           $dir_qr_image = './qr_equipment_image/';
-          if (!file_exists($dir_qr_image)) mkdir($dir_qr_image);
+          if (!file_exists($dir_qr_image)) mkdir($dir_qr_image, 0775, true);
           $qrEquipmentImagePath = $dir_qr_image . $qrEquipmentImageName; # donde lo va a guardar y con cual nombre
           $size = 5; # tamanio de la imagen
           $level = 'M'; # Precision del qr, puede ser ()
