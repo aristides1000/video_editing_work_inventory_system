@@ -95,7 +95,7 @@
               <div id="imageHelp" class="form-text">Por favor, suba solo archivos de imagenes con extenciones .jpg .png o .gif</div>
             </div>
             <a type="button" class="btn btn-secondary" href="">Cancelar</a>
-            <button type="submit" class="btn btn-primary">Modificar Equipo</button>
+            <button type="submit" class="btn btn-primary">Registrar Equipo</button>
           </form>
         <?php
         break;
