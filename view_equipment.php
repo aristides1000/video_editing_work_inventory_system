@@ -22,7 +22,7 @@
       <?php
       if (isset($_GET['id'])) {
       $sql = "SELECT
-                DISTINCT eq1.id AS id_equipment,
+                eq1.id AS id_equipment,
                 wa.id AS warehouse_id,
       			    ec.name AS equipment_category,
                 et.name AS equipment_type,
@@ -37,9 +37,13 @@
                 us1.nickname AS responsible,
                 us2.nickname AS verified_by
               FROM
-                warehouses wa
+                equipments eq1
               INNER JOIN
-                equipments eq1 ON wa.equipment_id = eq1.id
+                warehouses wa ON wa.equipment_id = eq1.id
+              LEFT JOIN
+                warehouses wa2 ON wa.equipment_id = wa2.equipment_id
+                AND wa.date < wa2.date
+                AND wa2.is_deleted = 0
               INNER JOIN
                 equipment_categories ec ON eq1.equipment_category_id = ec.id
               INNER JOIN
@@ -52,8 +56,12 @@
                 users us1 ON wa.responsible_id = us1.id
               INNER JOIN
                 users us2 ON wa.verified_by_id = us2.id
-              WHERE eq1.id = " . $_GET['id'] . "
-              ORDER BY wa.in_the_warehouse, wa.date DESC;";
+              WHERE
+                eq1.id = " . $_GET['id'] . "
+                AND wa2.id IS NULL
+              ORDER BY
+                wa.in_the_warehouse,
+                wa.date DESC;";
       $query = mysqli_query($link, $sql);
       $num = mysqli_num_rows($query);
         if ($num === 0){

@@ -19,9 +19,9 @@
         </div>
       <?php
       $sql = "SELECT
-                DISTINCT eq1.id AS id_equipment,
+                eq1.id AS id_equipment,
                 wa.id,
-      			    ec.name AS equipment_category,
+                ec.name AS equipment_category,
                 et.name AS equipment_type,
                 es.name AS equipment_status,
                 eq1.image_path,
@@ -34,9 +34,13 @@
                 us1.nickname AS responsible,
                 us2.nickname AS verified_by
               FROM
-                warehouses wa
+                equipments eq1
               INNER JOIN
-                equipments eq1 ON wa.equipment_id = eq1.id
+                warehouses wa ON wa.equipment_id = eq1.id
+              LEFT JOIN
+                warehouses wa2 ON wa.equipment_id = wa2.equipment_id
+                AND wa.date < wa2.date
+                AND wa2.is_deleted = 0
               INNER JOIN
                 equipment_categories ec ON eq1.equipment_category_id = ec.id
               INNER JOIN
@@ -49,8 +53,12 @@
                 users us1 ON wa.responsible_id = us1.id
               INNER JOIN
                 users us2 ON wa.verified_by_id = us2.id
-              WHERE wa.is_deleted = 0
-              ORDER BY wa.in_the_warehouse, warehouse_changeover_date DESC;";
+              WHERE
+                wa.is_deleted = 0
+                AND eq1.is_deleted = 0
+                AND wa2.id IS NULL
+              ORDER BY
+                wa.in_the_warehouse, warehouse_changeover_date DESC;";
       $query = mysqli_query($link, $sql);
       $num = mysqli_num_rows($query);
       if ($num==0) {
@@ -102,14 +110,14 @@
                               <img
                                 src="./equipment_image/<?php echo $row['image_path'] ?>"
                                 class="rounded mx-auto d-block resize-image-list"
-                                alt="equipo-numero-<?php echo $row['id'] ?>"
+                                alt="equipo-numero-<?php echo $row['id_equipment'] ?>"
                               >
                             </td>
                             <td>
                               <img
                                 src="./qr_equipment_image/<?php echo $row['qr_equipment_image'] ?>"
                                 class="rounded mx-auto d-block resize-image-list"
-                                alt="equipo-numero-<?php echo $row['id'] ?>"
+                                alt="equipo-numero-<?php echo $row['id_equipment'] ?>"
                               >
                             </td>
                             <td><?php echo ($row['in_the_warehouse']) ? "Si" : "No" ?></td>
@@ -119,7 +127,7 @@
                             <td><?php echo $row['responsible'] ?></td>
                             <td><?php echo $row['verified_by'] ?></td>
                             <td>
-                              <a href="view_equipment.php?id=<?php echo $row['id']?>" class="btn btn-primary">
+                              <a href="view_equipment.php?id=<?php echo $row['id_equipment']?>" class="btn btn-primary">
                                 Ver
                               </a>
                             </td>

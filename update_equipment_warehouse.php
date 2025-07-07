@@ -27,17 +27,22 @@
                 es.name AS equipment_status,
                 eq1.image_path,
                 eq1.qr_equipment_image,
-                eq1.is_deleted,
+                eq1.is_deleted AS equipment_is_deleted,
                 wa.in_the_warehouse,
                 CONVERT_TZ(wa.date, '+00:00', '-04:00') AS warehouse_changeover_date,
                 ta.name AS type_of_activity,
                 wa.activity,
                 us1.nickname AS responsible,
-                us2.nickname AS verified_by
+                us2.nickname AS verified_by,
+                wa.is_deleted AS warehouse_is_deleted
               FROM
-                warehouses wa
+                equipments eq1
               INNER JOIN
-                equipments eq1 ON wa.equipment_id = eq1.id
+                warehouses wa ON wa.equipment_id = eq1.id
+              LEFT JOIN
+                warehouses wa2 ON wa.equipment_id = wa2.equipment_id
+                AND wa.date < wa2.date
+                AND wa2.is_deleted = 0
               INNER JOIN
                 equipment_categories ec ON eq1.equipment_category_id = ec.id
               INNER JOIN
@@ -50,8 +55,12 @@
                 users us1 ON wa.responsible_id = us1.id
               INNER JOIN
                 users us2 ON wa.verified_by_id = us2.id
-              WHERE eq1.id = " . $_GET['id_equipment'] . "
-              ORDER BY wa.in_the_warehouse, wa.date DESC;";
+              WHERE
+                eq1.id = " . $_GET['id_equipment'] . "
+                AND wa2.id IS NULL
+              ORDER BY
+                wa.in_the_warehouse,
+                wa.date DESC;";
       $query = mysqli_query($link, $sql);
       $num = mysqli_num_rows($query);
         if ($num === 0){
@@ -178,12 +187,19 @@
                       <div class="mb-3">
                         <label for="image_path" class="form-label">Cargue la imagen</label>
                         <input class="form-control" type="file" id="image_path" name="image_path">
-                        <div id="imageHelp" class="form-text">
+                        <div id="imageHelp" class="form-text mb-3">
                           Si no desea Cambiar la imagen, deje este campo vacio
                           <br>
                           Por favor, suba solo archivos de imagenes con extenciones .jpg .png o .gif
                       </div>
+                      <div class="mb-3">
+                        <label for="equipment_is_deleted" class="form-label">El equipo está elimininado?</label>
+                        <select class="form-select" aria-label="El equipo está elimininado?" id="equipment_is_deleted" name="equipment_is_deleted">
+                          <option value='1' <?php echo ($row_general['equipment_is_deleted'] === '1') ? 'selected' : ''; ?>>Si</option>
+                          <option value='0' <?php echo ($row_general['equipment_is_deleted'] === '0') ? 'selected' : ''; ?>>No</option>
+                        </select>
                       </div>
+                      <input type="hidden" id="warehouse_id" name="warehouse_id" value="<?php echo $row_general['warehouse_id'] ?>">
                       <div class="mb-3">
                         <label for="in_the_warehouse" class="form-label">En el almacen?</label>
                         <select class="form-select" aria-label="En el almacen?" id="in_the_warehouse" name="in_the_warehouse">
@@ -230,10 +246,10 @@
                         </select>
                       </div>
                       <div class="mb-3">
-                        <label for="is_deleted" class="form-label">Está Elimininado?</label>
-                        <select class="form-select" aria-label="En el almacen?" id="is_deleted" name="is_deleted">
-                          <option value='1' <?php echo ($row_general['is_deleted'] === '1') ? 'selected' : ''; ?>>Si</option>
-                          <option value='0' <?php echo ($row_general['is_deleted'] === '0') ? 'selected' : ''; ?>>No</option>
+                        <label for="warehouse_is_deleted" class="form-label">Este registro esta elimininado?</label>
+                        <select class="form-select" aria-label="El equipo está elimininado?" id="warehouse_is_deleted" name="warehouse_is_deleted">
+                          <option value='1' <?php echo ($row_general['warehouse_is_deleted'] === '1') ? 'selected' : ''; ?>>Si</option>
+                          <option value='0' <?php echo ($row_general['warehouse_is_deleted'] === '0') ? 'selected' : ''; ?>>No</option>
                         </select>
                       </div>
                       <div class="row text-center mt-3 mb-5">
