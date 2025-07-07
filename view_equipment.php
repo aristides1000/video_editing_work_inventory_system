@@ -22,7 +22,7 @@
       <?php
       if (isset($_GET['id'])) {
       $sql = "SELECT
-                eq1.id AS id_equipment,
+                DISTINCT eq1.id AS id_equipment,
                 wa.id AS warehouse_id,
       			    ec.name AS equipment_category,
                 et.name AS equipment_type,
