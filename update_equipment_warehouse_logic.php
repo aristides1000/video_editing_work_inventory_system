@@ -1,6 +1,4 @@
 <?php
-  error_reporting(E_ALL);
-  ini_set('display_errors', 1);
   session_start();
   include 'conexion.php';
   include_once('./includes/header.php');
@@ -32,25 +30,8 @@
                               AND w2.id IS NULL;";
     $queryEquipmentSelected = mysqli_query($link, $sqlEquipmentSelected);
     while($row = mysqli_fetch_array($queryEquipmentSelected, MYSQLI_ASSOC)) {
-      /* inicio test */
-      echo $_POST['id_equipment'] . " " . $row['id_equipment'] . "<br>";
-      echo $_POST['equipment_category_id'] . " " . $row['equipment_category_id'] . "<br>";
-      echo $_POST['type_of_equipment_id'] . " " . $row['type_of_equipment_id'] . "<br>";
-      echo $_POST['equipment_status_id'] . " " . $row['equipment_status_id'] . "<br>";
-      echo $_POST['equipment_is_deleted'] . " " . $row['equipment_is_deleted'] . "<br>";
-      echo $_POST['warehouse_id'] . " " . $row['warehouse_id'] . "<br>";
-      echo $_POST['type_of_activity_id'] . " " . $row['type_of_activity_id'] . "<br>";
-      echo $_POST['activity'] . " " . $row['activity'] . "<br>";
-      echo $_POST['responsible_id'] . " " . $row['responsible_id'] . "<br>";
-      echo $_POST['verified_by_id'] . " " . $row['verified_by_id'] . "<br>";
-      echo $_POST['warehouse_is_deleted'] . " " . $row['warehouse_is_deleted'] . "<br>";
-      if (isset($_FILES['image_path']['name'])) {
-        echo 'si foto';
-      } else {
-        echo "no foto";
-      }
-      /* fin test */
-      if ($_POST['id_equipment'] == $row['id_equipment'] && $_POST['equipment_category_id'] == $row['equipment_category_id'] && $_POST['type_of_equipment_id'] == $row['type_of_equipment_id'] && $_POST['equipment_status_id'] == $row['equipment_status_id'] && $_POST['equipment_is_deleted'] == $row['equipment_is_deleted'] && $_POST['warehouse_id'] == $row['warehouse_id'] && $_POST['type_of_activity_id'] == $row['type_of_activity_id'] && $_POST['activity'] == $row['activity'] && $_POST['responsible_id'] == $row['responsible_id'] && $_POST['verified_by_id'] == $row['verified_by_id'] && $_POST['warehouse_is_deleted'] == $row['warehouse_is_deleted'] && isset($_FILES['image_path']['name']) && $_FILES['image_path']['name']!='') {
+      if ($_POST['id_equipment'] == $row['id_equipment'] && $_POST['equipment_category_id'] == $row['equipment_category_id'] && $_POST['type_of_equipment_id'] == $row['type_of_equipment_id'] && $_POST['equipment_status_id'] == $row['equipment_status_id'] && $_POST['equipment_is_deleted'] == $row['equipment_is_deleted'] && $_POST['warehouse_id'] == $row['warehouse_id'] && $_POST['in_the_warehouse'] == $row['in_the_warehouse'] && $_POST['type_of_activity_id'] == $row['type_of_activity_id'] && $_POST['activity'] == $row['activity'] && $_POST['responsible_id'] == $row['responsible_id'] && $_POST['verified_by_id'] == $row['verified_by_id'] && $_POST['warehouse_is_deleted'] == $row['warehouse_is_deleted'] && $_FILES["image_path"]["error"] == 4) {
+        /* El $_FILES["image_path"]["error"] == 4 lo que nos dice es que el archivo no fue subido a la plataforma */
         ?>
           <div class="modal fade" id="sameData" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered">
@@ -62,7 +43,7 @@
                   </a>
                 </div>
                 <div class="modal-body">
-                  Los Datos ingresados son iguales a los datos provenientes del equipo, por favor ingrese toda la informacion solicitada
+                  Los Datos ingresados son iguales a los datos provenientes del equipo, por favor ingrese la informacion que desea cambiar del equipo
                 </div>
                 <div class="modal-footer">
                   <a href="./update_equipment_warehouse.php?id_equipment=<?php echo $_POST['id_equipment'] ?>">
@@ -78,36 +59,36 @@
             sameData.show();
           </script>
         <?php
-        break;
+        return 0;
+      } else {
+        # Actualizar los queries
+        $sql_equipments = "UPDATE equipments
+                            SET
+                              equipment_category_id = $_POST[equipment_category_id],
+                              type_of_equipment_id = $_POST[type_of_equipment_id],
+                              equipment_status_id = $_POST[equipment_status_id],
+                              is_deleted = $_POST[equipment_is_deleted]
+                            WHERE
+                              id = $_POST[id_equipment];";
+        mysqli_query($link, $sql_equipments);
+
+        $sql_warehouses = "INSERT INTO warehouses (equipment_id,
+                                                    in_the_warehouse,
+                                                    type_of_activity_id,
+                                                    activity,
+                                                    responsible_id,
+                                                    verified_by_id,
+                                                    is_deleted)
+                            VALUES ($_POST[id_equipment],
+                                    $_POST[in_the_warehouse],
+                                    $_POST[type_of_activity_id],
+                                    '$_POST[activity]',
+                                    $_POST[responsible_id],
+                                    $_POST[verified_by_id],
+                                    $_POST[warehouse_is_deleted])";
+        mysqli_query($link, $sql_warehouses);
       }
     }
-    # Actualizar los queries
-
-    $sql_equipments = "UPDATE equipments
-                        SET
-                          equipment_category_id = $_POST[equipment_category_id],
-                          type_of_equipment_id = $_POST[type_of_equipment_id],
-                          equipment_status_id = $_POST[equipment_status_id],
-                          is_deleted = $_POST[equipment_is_deleted]
-                        WHERE
-                          id = $_POST[id_equipment];";
-    mysqli_query($link, $sql_equipments);
-
-    $sql_warehouses = "INSERT INTO warehouses (equipment_id,
-                                                in_the_warehouse,
-                                                type_of_activity_id,
-                                                activity,
-                                                responsible_id,
-                                                verified_by_id,
-                                                is_deleted)
-                        VALUES ($_POST[id_equipment],
-                                $_POST[in_the_warehouse],
-                                $_POST[type_of_activity_id],
-                                '$_POST[activity]',
-                                $_POST[responsible_id],
-                                $_POST[verified_by_id],
-                                $_POST[warehouse_is_deleted])";
-    mysqli_query($link, $sql_warehouses);
 
     if (mysqli_error($link)) {
       ?>
@@ -116,7 +97,7 @@
             <div class="modal-content">
               <div class="modal-header">
                 <h1 class="modal-title fs-5" id="staticBackdropLabel">Error al Modificar</h1>
-                <a href="./equipment_registration.php" class="ms-auto">
+                <a href="./update_equipment_warehouse.php?id_equipment=<?php echo $_POST['id_equipment'] ?>" class="ms-auto">
                   <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </a>
               </div>
@@ -124,7 +105,7 @@
                 Error en la modificacion del equipo. Por Favor intente de nuevo.
               </div>
               <div class="modal-footer">
-                <a href="./equipment_registration.php">
+                <a href="./update_equipment_warehouse.php?id_equipment=<?php echo $_POST['id_equipment'] ?>">
                   <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                 </a>
               </div>
@@ -138,7 +119,7 @@
         </script>
       <?php
     } else { # Si no da error la insercion;
-      if(isset($_FILES['image_path']['name']) && $_FILES['image_path']['name']!='') { #Si la foto fue enviada en el formulario
+      if($_FILES["image_path"]["error"] < 1) { #Si la foto fue enviada en el formulario
       #llegaron los datos
       $temporal = $_FILES['image_path']['tmp_name'];
       $arch = $_FILES['image_path']['name'];
@@ -152,7 +133,7 @@
                 <div class="modal-content">
                   <div class="modal-header">
                     <h1 class="modal-title fs-5" id="staticBackdropLabel">Error por tipo de archivo</h1>
-                    <a href="./equipment_registration.php" class="ms-auto">
+                    <a href="./update_equipment_warehouse.php?id_equipment=<?php echo $_POST['id_equipment'] ?>" class="ms-auto">
                       <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </a>
                   </div>
@@ -160,7 +141,7 @@
                     Error por tipo de archivo cargado, el archivo debe ser extension: .jpg .png o .gif
                   </div>
                   <div class="modal-footer">
-                    <a href="./equipment_registration.php">
+                    <a href="./update_equipment_warehouse.php?id_equipment=<?php echo $_POST['id_equipment'] ?>">
                       <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                     </a>
                   </div>
@@ -184,36 +165,37 @@
             if (!file_exists($dir_equipment_image)) mkdir($dir_equipment_image, 0775, true);
             $equipmentImagePath = $dir_equipment_image . $equipmentImageName;
             copy($_FILES['image_path']['tmp_name'], $equipmentImagePath);
-            ?>
-              <div class="modal fade" id="successfulEquipmentRegistration" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-                <div class="modal-dialog modal-dialog-centered">
-                  <div class="modal-content">
-                    <div class="modal-header">
-                      <h1 class="modal-title fs-5" id="staticBackdropLabel">Registro Exitoso</h1>
-                      <a href="./equipment_registration.php" class="ms-auto">
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                      </a>
-                    </div>
-                    <div class="modal-body">
-                      Equipo registrado exitosamente.
-                    </div>
-                    <div class="modal-footer">
-                      <a href="./equipment_registration.php">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                      </a>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js" integrity="sha384-j1CDi7MgGQ12Z7Qab0qlWQ/Qqz24Gc6BM0thvEMVjHnfYGF0rmFCozFSxQBxwHKO" crossorigin="anonymous"></script>
-              <script>
-                const successfulEquipmentRegistration = new bootstrap.Modal(document.getElementById('successfulEquipmentRegistration'));
-                successfulEquipmentRegistration.show();
-              </script>
-            <?php
           }
         }
       }
+      ?>
+        <div class="modal fade" id="successfulEquipmentRegistration" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+          <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h1 class="modal-title fs-5" id="staticBackdropLabel">Registro Exitoso</h1>
+                <a href="./view_equipment.php?id=<?php echo $_POST['id_equipment'] ?>" class="ms-auto">
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </a>
+              </div>
+              <div class="modal-body">
+                Equipo registrado exitosamente.
+              </div>
+              <div class="modal-footer">
+                <a href="./view_equipment.php?id=<?php echo $_POST['id_equipment'] ?>">
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js" integrity="sha384-j1CDi7MgGQ12Z7Qab0qlWQ/Qqz24Gc6BM0thvEMVjHnfYGF0rmFCozFSxQBxwHKO" crossorigin="anonymous"></script>
+        <script>
+          const successfulEquipmentRegistration = new bootstrap.Modal(document.getElementById('successfulEquipmentRegistration'));
+          successfulEquipmentRegistration.show();
+        </script>
+      <?php
+      return 0;
     }
   } else { # No se llenaron todos los datos solicitados
     ?>
@@ -243,6 +225,7 @@
         missingData.show();
       </script>
     <?php
+    return 0;
   }
 
   include_once('./includes/footer.php');
