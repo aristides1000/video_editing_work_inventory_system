@@ -12,7 +12,8 @@ INSERT INTO types_of_user (name)
 VALUES ("super_usuario"),
 ("administrador"),
 ("inspector"),
-("responsable");
+("responsable"),
+("verificador");
 
 CREATE TABLE IF NOT EXISTS equipment_categories (
   id INT NOT NULL AUTO_INCREMENT,
@@ -37,7 +38,8 @@ INSERT INTO users (nickname, password, user_type_id)
 VALUES ("super usuario", md5('123'), 1),
 ("administrador", md5('123'), 2),
 ("inspector", md5('123'), 3),
-("responsable", md5('123'), 4);
+("responsable", md5('123'), 4)
+("verificador", md5('123'), 5);
 
 CREATE TABLE IF NOT EXISTS equipment_types (
   id INT NOT NULL AUTO_INCREMENT,

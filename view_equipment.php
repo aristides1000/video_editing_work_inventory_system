@@ -107,12 +107,21 @@
               </div>
               <div class="row text-center mt-3">
                 <div class="col">
-                  <a href="view_equipment.php?id=<?php echo $row['id']?>" class="btn btn-primary mx-3">
-                    Retiro de Equipo
-                  </a>
-                  <a href="view_equipment.php?id=<?php echo $row['id']?>" class="btn btn-success mx-3">
-                    Devolucion de Equipo
-                  </a>
+                  <?php
+                  if ($row['in_the_warehouse']) {
+                    ?>
+                      <a href="equipment_removal.php?id=<?php echo $row['id']?>" class="btn btn-primary mx-3">
+                        Retiro de Equipo
+                      </a>
+                    <?php
+                  } else {
+                    ?>
+                      <a href="equipment_storage.php?id=<?php echo $row['id']?>" class="btn btn-success mx-3">
+                        Devolucion de Equipo
+                      </a>
+                    <?php
+                  }
+                  ?>
                   <?php
                     if ($_SESSION['user_type_id'] === "1" || $_SESSION['user_type_id'] === "2") {
                   ?>
