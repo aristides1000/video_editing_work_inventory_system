@@ -83,6 +83,7 @@ CREATE TABLE IF NOT EXISTS equipments (
   equipment_status_id INT NOT NULL,
   image_path VARCHAR(255),
   qr_equipment_image VARCHAR(255),
+  last_verification TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP NOT NULL,
   is_deleted BOOLEAN NOT NULL,
   PRIMARY KEY (id),
   FOREIGN KEY(equipment_category_id) REFERENCES equipment_categories(id),
