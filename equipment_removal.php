@@ -179,17 +179,6 @@
                         <input type="text" class="form-control" id="activity" name="activity">
                       </div>
                       <div class="mb-3">
-                        <label for="responsible_id" class="form-label">Responsable</label>
-                        <select class="form-select" aria-label="Responsable" id="responsible_id" name="responsible_id">
-                          <?php
-                            while($row = mysqli_fetch_array($query_user_responsible, MYSQLI_ASSOC)) {
-                              $selected = ($row['nickname'] === $row_general['responsible']) ? 'selected' : '';
-                              echo "<option value='{$row['id']}' $selected>{$row['nickname']}</option>";
-                            }
-                          ?>
-                        </select>
-                      </div>
-                      <div class="mb-3">
                         <label for="verified_by_id" class="form-label">Verificado por</label>
                         <select class="form-select" aria-label="Responsable" id="verified_by_id" name="verified_by_id">
                           <?php

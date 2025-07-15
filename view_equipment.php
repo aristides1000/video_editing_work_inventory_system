@@ -24,7 +24,7 @@
       $sql = "SELECT
                 eq1.id AS id_equipment,
                 wa.id AS warehouse_id,
-      			    ec.name AS equipment_category,
+                ec.name AS equipment_category,
                 et.name AS equipment_type,
                 es.name AS equipment_status,
                 eq1.image_path,
@@ -136,38 +136,58 @@
                         </div>
                       </div>
                     <?php
-                  } else {
-                    ?>
-                      <!-- <a href="equipment_storage.php?id=<?php echo $row['id_equipment']?>" class="btn btn-success mx-3">
-                        Devolucion de Equipo
-                      </a> -->
+                  }
+                  $sql_responsible_id = "SELECT
+                                          eq1.id AS id_equipment,
+                                          wa.id AS warehouse_id,
+                                          wa.in_the_warehouse,
+                                          CONVERT_TZ(wa.date, '+00:00', '-04:00') AS warehouse_changeover_date,
+                                          wa.responsible_id
+                                        FROM
+                                          equipments eq1
+                                        INNER JOIN
+                                          warehouses wa ON wa.equipment_id = eq1.id
+                                        LEFT JOIN
+                                          warehouses wa2 ON wa.equipment_id = wa2.equipment_id
+                                          AND wa.date < wa2.date
+                                          AND wa2.is_deleted = 0
+                                        WHERE
+                                          eq1.id = " . $_GET['id'] . "
+                                          AND wa2.id IS NULL
+                                        ORDER BY
+                                          wa.in_the_warehouse,
+                                          wa.date DESC;";
+                  $query_responsible_id = mysqli_query($link, $sql_responsible_id);
+                  while($row_responsible_id = mysqli_fetch_array($query_responsible_id, MYSQLI_ASSOC)) {
+                    if (!$row['in_the_warehouse'] && $row_responsible_id['responsible_id'] === $_SESSION['id']) {
+                      ?>
+                        <!-- Button modify equipment trigger modal -->
+                        <button type="button" class="btn btn-success mx-3" data-bs-toggle="modal" data-bs-target="#storageEquipmentModal">
+                          Devolver Equipo
+                        </button>
 
-                      <!-- Button modify equipment trigger modal -->
-                      <button type="button" class="btn btn-success mx-3" data-bs-toggle="modal" data-bs-target="#storageEquipmentModal">
-                        Devolver Equipo
-                      </button>
-
-                      <!-- Modal modify equipment -->
-                      <div class="modal fade" id="storageEquipmentModal" tabindex="-1" aria-labelledby="storageEquipmentModalLabel" aria-hidden="true">
-                        <div class="modal-dialog">
-                          <div class="modal-content">
-                            <div class="modal-header">
-                              <h1 class="modal-title fs-5" id="storageEquipmentModalLabel">Devolver Equipo</h1>
-                              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                            </div>
-                            <div class="modal-body">
-                              ¿Está seguro que desea Devolver éste equipo?
-                            </div>
-                            <div class="modal-footer">
-                              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                              <a href="equipment_storage.php?id_equipment=<?php echo $row['id_equipment']?>" class="btn btn-success mx-3">
-                                Devolver Equipo
-                              </a>
+                        <!-- Modal modify equipment -->
+                        <div class="modal fade" id="storageEquipmentModal" tabindex="-1" aria-labelledby="storageEquipmentModalLabel" aria-hidden="true">
+                          <div class="modal-dialog">
+                            <div class="modal-content">
+                              <div class="modal-header">
+                                <h1 class="modal-title fs-5" id="storageEquipmentModalLabel">Devolver Equipo</h1>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                              </div>
+                              <div class="modal-body">
+                                ¿Está seguro que desea Devolver éste equipo?
+                              </div>
+                              <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                <a href="equipment_storage.php?id_equipment=<?php echo $row['id_equipment']?>" class="btn btn-success mx-3">
+                                  Devolver Equipo
+                                </a>
+                              </div>
                             </div>
                           </div>
                         </div>
-                      </div>
-                    <?php
+                      <?php
+                    }
                   }
                   ?>
                   <?php
