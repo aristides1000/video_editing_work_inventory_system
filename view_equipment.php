@@ -102,7 +102,7 @@
                   <p>Actividad: <?php echo $row['activity'] ?></p>
                   <p>Responsable: <?php echo $row['responsible'] ?></p>
                   <p>Verificado por: <?php echo $row['verified_by'] ?></p>
-                  <p>Está Elimininado?: <?php echo ($row['is_deleted']) ? "Si" : "No" ?></p></p>
+                  <p>Está Elimininado?: <?php echo ($row['is_deleted']) ? "Si" : "No" ?></p>
                 </div>
               </div>
               <div class="row text-center mt-3">
@@ -110,15 +110,63 @@
                   <?php
                   if ($row['in_the_warehouse']) {
                     ?>
-                      <a href="equipment_removal.php?id=<?php echo $row['id']?>" class="btn btn-primary mx-3">
-                        Retiro de Equipo
-                      </a>
+                      <!-- Button modify equipment trigger modal -->
+                      <button type="button" class="btn btn-primary mx-3" data-bs-toggle="modal" data-bs-target="#removalEquipmentModal">
+                        Retirar Equipo
+                      </button>
+
+                      <!-- Modal modify equipment -->
+                      <div class="modal fade" id="removalEquipmentModal" tabindex="-1" aria-labelledby="removalEquipmentModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                          <div class="modal-content">
+                            <div class="modal-header">
+                              <h1 class="modal-title fs-5" id="removalEquipmentModalLabel">Retirar Equipo</h1>
+                              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                              ¿Está seguro que desea retirar éste equipo?
+                            </div>
+                            <div class="modal-footer">
+                              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                              <a href="equipment_removal.php?id_equipment=<?php echo $row['id_equipment']?>" class="btn btn-primary mx-3">
+                                Retirar Equipo
+                              </a>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
                     <?php
                   } else {
                     ?>
-                      <a href="equipment_storage.php?id=<?php echo $row['id']?>" class="btn btn-success mx-3">
+                      <!-- <a href="equipment_storage.php?id=<?php echo $row['id_equipment']?>" class="btn btn-success mx-3">
                         Devolucion de Equipo
-                      </a>
+                      </a> -->
+
+                      <!-- Button modify equipment trigger modal -->
+                      <button type="button" class="btn btn-success mx-3" data-bs-toggle="modal" data-bs-target="#storageEquipmentModal">
+                        Devolver Equipo
+                      </button>
+
+                      <!-- Modal modify equipment -->
+                      <div class="modal fade" id="storageEquipmentModal" tabindex="-1" aria-labelledby="storageEquipmentModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                          <div class="modal-content">
+                            <div class="modal-header">
+                              <h1 class="modal-title fs-5" id="storageEquipmentModalLabel">Devolver Equipo</h1>
+                              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                              ¿Está seguro que desea Devolver éste equipo?
+                            </div>
+                            <div class="modal-footer">
+                              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                              <a href="equipment_storage.php?id_equipment=<?php echo $row['id_equipment']?>" class="btn btn-success mx-3">
+                                Devolver Equipo
+                              </a>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
                     <?php
                   }
                   ?>

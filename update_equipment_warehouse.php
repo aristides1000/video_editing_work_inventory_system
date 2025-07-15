@@ -3,7 +3,7 @@
   include_once('./conexion.php');
   include_once('./includes/header.php');
 ?>
-  <title>Vista del Equipo</title>
+  <title>Modificar del Equipo</title>
 <?php
   include_once('./includes/navbar.php');
   switch ($_SESSION['user_type_id']) {
