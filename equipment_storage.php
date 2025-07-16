@@ -21,28 +21,30 @@
                             AND wa.date < wa2.date
                             AND wa2.is_deleted = 0
                           WHERE
-                            eq1.id = " . $_GET['id'] . "
+                            eq1.id = " . $_GET['id_equipment'] . "
                             AND wa2.id IS NULL
                           ORDER BY
                             wa.in_the_warehouse,
                             wa.date DESC;";
     $query_verified_by_id = mysqli_query($link, $sql_verified_by_id);
+    $verified_by_id = 0;
     while($row_verified_by_id = mysqli_fetch_array($query_verified_by_id, MYSQLI_ASSOC)) {
-      $sql_warehouses = "INSERT INTO warehouses (equipment_id,
-                                                  in_the_warehouse,
-                                                  type_of_activity_id,
-                                                  activity,
-                                                  responsible_id,
-                                                  verified_by_id,
-                                                  is_deleted)
-                          VALUES (" . $_GET['id_equipment'] . ",
-                                  1,
-                                  3,
-                                  'en almacen',
-                                  $_SESSION[id],
-                                  " . $row_verified_by_id['verified_by_id'] . ",
-                                  0)";
+      $verified_by_id = $row_verified_by_id['verified_by_id'];
     }
+    $sql_warehouses = "INSERT INTO warehouses (equipment_id,
+                                                in_the_warehouse,
+                                                type_of_activity_id,
+                                                activity,
+                                                responsible_id,
+                                                verified_by_id,
+                                                is_deleted)
+                        VALUES (" . $_GET['id_equipment'] . ",
+                                1,
+                                3,
+                                'en almacen',
+                                $_SESSION[id],
+                                " . $verified_by_id . ",
+                                0)";
     mysqli_query($link, $sql_warehouses);
 
     if (mysqli_error($link)) {
