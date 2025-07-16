@@ -102,7 +102,7 @@
                   <p>Actividad: <?php echo $row['activity'] ?></p>
                   <p>Responsable: <?php echo $row['responsible'] ?></p>
                   <p>Verificado por: <?php echo $row['verified_by'] ?></p>
-                  <p>Está Elimininado?: <?php echo ($row['is_deleted']) ? "Si" : "No" ?></p>
+                  <p>El equipo está elimininado?: <?php echo ($row['is_deleted']) ? "Si" : "No" ?></p>
                 </div>
               </div>
               <div class="row text-center mt-3">
