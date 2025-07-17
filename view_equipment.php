@@ -250,6 +250,14 @@
                     </a>
                   <?php
                     }
+
+                    if ($_SESSION['user_type_id'] === "1" || $_SESSION['user_type_id'] === "5") {
+                      ?>
+                        <a href="equipment_verification.php?id_equipment=<?php echo $row['id_equipment']?>" class="btn btn-secondary mx-3">
+                          Verificar Existencia del Equipo
+                        </a>
+                      <?php
+                    }
                   ?>
                 </div>
               </div>
