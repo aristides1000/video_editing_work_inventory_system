@@ -27,6 +27,7 @@
                 equipments_status.name AS equipment_status,
                 equipments.image_path,
                 equipments.qr_equipment_image,
+                equipments.last_verification,
                 equipments.is_deleted
               FROM
                 equipments
@@ -38,7 +39,8 @@
                 equipments_status ON equipments.equipment_status_id = equipments_status.id
               WHERE equipments.is_deleted = 0
               ORDER BY
-              	equipments_status.id DESC;";
+                equipments.last_verification ASC,
+                equipments_status.id DESC;";
       $query = mysqli_query($link, $sql);
       $num = mysqli_num_rows($query);
       if ($num==0) {
@@ -66,15 +68,31 @@
                       <th scope="col">Estatus del Equipo</th>
                       <th scope="col">Imagen del Equipo</th>
                       <th scope="col">Qr del Equipo</th>
+                      <th scope="col">Última Verificación</th>
+                      <th scope="col">Verificado Hace</th>
                     </tr>
                   </thead>
                   <tbody>
                     <?php
                       while($row = mysqli_fetch_array($query, MYSQLI_ASSOC)) {
+                        // Configurar la zona horaria de Venezuela
+                        $timezone = new DateTimeZone('America/Caracas');
+                        $fechaInicio = new DateTime($row['last_verification'], $timezone);
+                        $fechaFin = new DateTime('now', $timezone);
+
+                        $diferencia = $fechaInicio->diff($fechaFin);
+                        $diasTotales = (int) $diferencia->days; // Diferencia total en días
                         ?>
-                          <tr
-                            <?php echo ($row['equipment_status'] === 'averiado') ? 'class="table-danger"' : '' ?>
-                          >
+                          <tr class="
+                            <?php
+                              echo ($row['equipment_status'] === 'averiado') ? 'table-secondary' : '';
+                              if ($diasTotales > 15 && $diasTotales < 29) {
+                                echo "table-warning";
+                              } elseif ($diasTotales > 30) {
+                                echo "table-danger";
+                              }
+                            ?>
+                          ">
                             <th scope="row"><?php echo $row['id'] ?></th>
                             <td><?php echo $row['equipment_categorie'] ?></td>
                             <td><?php echo $row['equipment_type'] ?></td>
@@ -92,6 +110,10 @@
                                 class="rounded mx-auto d-block resize-image-list"
                                 alt="equipo-numero-<?php echo $row['id'] ?>"
                               >
+                            </td>
+                            <td><?php echo $row['last_verification'] ?></td>
+                            <td>
+                              <?php echo $diasTotales . " días"; ?>
                             </td>
                           </tr>
                         <?php
