@@ -11,7 +11,7 @@
   $level = 'M'; # Precision del qr, puede ser ()
   $frameSize = 2; # el padding blanco del qr
 
-  for ($i = 1; $i < 10; $i++) {
+  for ($i = 1; $i < 501; $i++) {
     $qrEquipmentImageName = 'qr-equipment-image-' . $i . '.png';
     $content = SERVER_HOSTNAME . '/video_editing_work_inventory_system/view_equipment.php?id=' . $i; # es lo que va a monstrar nuestro codigo qr
     $qrEquipmentImagePath = $dir_qr_image . $qrEquipmentImageName; # donde lo va a guardar y con cual nombre
