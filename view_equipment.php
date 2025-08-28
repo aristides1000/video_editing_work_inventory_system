@@ -109,7 +109,7 @@
               <div class="row text-center mt-3">
                 <div class="col">
                   <?php
-                  if ($row['in_the_warehouse'] && $_SESSION['user_type_id'] !== 5) {
+                  if ($row['in_the_warehouse'] && intval($_SESSION['user_type_id']) !== 5) {
                     ?>
                       <!-- Button modify equipment trigger modal -->
                       <button type="button" class="btn btn-primary mx-3" data-bs-toggle="modal" data-bs-target="#removalEquipmentModal">
@@ -160,7 +160,7 @@
                                           wa.date DESC;";
                   $query_responsible_id = mysqli_query($link, $sql_responsible_id);
                   while($row_responsible_id = mysqli_fetch_array($query_responsible_id, MYSQLI_ASSOC)) {
-                    if (!$row['in_the_warehouse'] && $row_responsible_id['responsible_id'] === $_SESSION['id'] && $_SESSION['user_type_id'] !== 5) {
+                    if (!$row['in_the_warehouse'] && $row_responsible_id['responsible_id'] === $_SESSION['id']) {
                       ?>
                         <!-- Button modify equipment trigger modal -->
                         <button type="button" class="btn btn-success mx-3" data-bs-toggle="modal" data-bs-target="#storageEquipmentModal">
