@@ -11,6 +11,7 @@
     case "2":
     case "3":
     case "4":
+    case "5":
       ?>
         <div class="container text-center mt-3">
           <div class="row">

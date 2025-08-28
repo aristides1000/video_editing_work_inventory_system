@@ -26,6 +26,7 @@
       break;
     case "3":
     case "4":
+    case "5":
       ?>
         <h1>Hola <span class="fw-bolder"><?php echo $_SESSION['nickname'] ?></span>, Bienvenido a la pagina de inicio!</h1>
         <p>Seras redirigido en <span id="counter" class="fw-bolder"></span> segundos a <span class="fw-bolder">Lista de Equipos</span></p>
