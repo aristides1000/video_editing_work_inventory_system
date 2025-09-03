@@ -21,6 +21,7 @@
                   <a class="nav-link" href="./warehouse_list.php">Lista del almacén</a>
                   <a class="nav-link" href="./user_registration.php">Registro de usuarios</a>
                   <a class="nav-link" href="./equipment_registration.php">Registro de equipos</a>
+                  <a class="nav-link" href="./equipment_type_registration.php">Registro de tipos de equipos</a>
                   <span class="ms-auto"></span>
                   <div class="tdnn me-3">
                     <div class="moon">
