@@ -94,6 +94,10 @@
               <input class="form-control" type="file" id="image_path" name="image_path">
               <div id="imageHelp" class="form-text">Por favor, suba solo archivos de imagenes con extenciones .jpg .png o .gif</div>
             </div>
+            <div class="mb-3">
+              <label for="note" class="form-label">Nota</label>
+              <input type="note" class="form-control" id="note" name="note" placeholder="Si es necesaria, agregue una nota que no exeda de 255 caractéres">
+            </div>
             <a type="button" class="btn btn-secondary" href="">Cancelar</a>
             <button type="submit" class="btn btn-primary">Registrar Equipo</button>
           </form>

@@ -56,8 +56,8 @@
         $equipmentImageName = 'equipment-image-' . $next_id . $imageExtention;
         $qrEquipmentImageName = 'qr-equipment-image-' . $next_id . '.png';
 
-        $sql_equipments = "INSERT INTO equipments (equipment_category_id, type_of_equipment_id, equipment_status_id, image_path, qr_equipment_image, is_deleted)
-          VALUES ('$_POST[equipment_category_id]', '$_POST[type_of_equipment_id]', '$_POST[equipment_status_id]', '". $equipmentImageName ."', '". $qrEquipmentImageName ."', 0);";
+        $sql_equipments = "INSERT INTO equipments (equipment_category_id, type_of_equipment_id, equipment_status_id, image_path, qr_equipment_image, note, is_deleted)
+          VALUES ('$_POST[equipment_category_id]', '$_POST[type_of_equipment_id]', '$_POST[equipment_status_id]', '". $equipmentImageName ."', '". $qrEquipmentImageName ."', '$_POST[note]', 0);";
         mysqli_query($link, $sql_equipments);
 
         $sql_warehouses = "INSERT INTO warehouses (equipment_id, in_the_warehouse, type_of_activity_id, activity, responsible_id, verified_by_id, is_deleted)
