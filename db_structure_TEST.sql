@@ -84,6 +84,7 @@ CREATE TABLE IF NOT EXISTS equipments (
   image_path VARCHAR(255),
   qr_equipment_image VARCHAR(255),
   last_verification TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP NOT NULL,
+  note VARCHAR(255),
   is_deleted BOOLEAN NOT NULL,
   PRIMARY KEY (id),
   FOREIGN KEY(equipment_category_id) REFERENCES equipment_categories(id),
@@ -91,10 +92,10 @@ CREATE TABLE IF NOT EXISTS equipments (
   FOREIGN KEY(equipment_status_id) REFERENCES equipments_status(id)
 );
 
-INSERT INTO equipments (equipment_category_id, type_of_equipment_id, equipment_status_id, image_path, qr_equipment_image, is_deleted)
-VALUES (1, 1, 1, "default_image.png", "default_qr.png", 0),
-(2, 3, 2, "default_image.png", "default_qr.png", 0),
-(1, 2, 1, "default_image.png", "default_qr.png", 0);
+INSERT INTO equipments (equipment_category_id, type_of_equipment_id, equipment_status_id, image_path, qr_equipment_image, note, is_deleted)
+VALUES (1, 1, 1, "default_image.png", "default_qr.png", '', 0),
+(2, 3, 2, "default_image.png", "default_qr.png", '', 0),
+(1, 2, 1, "default_image.png", "default_qr.png", '', 0);
 
 CREATE TABLE IF NOT EXISTS warehouses (
   id INT NOT NULL AUTO_INCREMENT,
