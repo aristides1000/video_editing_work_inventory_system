@@ -29,6 +29,7 @@
                 equipments.image_path,
                 equipments.qr_equipment_image,
                 equipments.last_verification,
+                equipments.note,
                 equipments.is_deleted
               FROM
                 equipments
@@ -71,6 +72,7 @@
                       <th scope="col">Qr del Equipo</th>
                       <th scope="col">Última Verificación</th>
                       <th scope="col">Verificado Hace</th>
+                      <th scope="col">Nota</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -116,6 +118,7 @@
                             <td>
                               <?php echo $diasTotales . " días"; ?>
                             </td>
+                            <td><?php echo $row['note'] ?></td>
                           </tr>
                         <?php
                       }
